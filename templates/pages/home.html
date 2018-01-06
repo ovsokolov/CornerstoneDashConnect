@@ -1,0 +1,179 @@
+---
+products:
+    new:
+        limit: {{theme_settings.homepage_new_products_count}}
+    featured:
+        limit: {{theme_settings.homepage_featured_products_count}}
+    top_sellers:
+        limit: {{theme_settings.homepage_top_products_count}}
+carousel: {{theme_settings.homepage_show_carousel}}
+blog:
+    recent_posts:
+        limit: {{theme_settings.homepage_blog_posts_count}}
+---
+
+{{#partial "page"}}
+    {{#each shipping_messages}}
+        {{> components/common/alert-info message}}
+    {{/each}}
+    
+<div class="car-banner parallax-wrapper" >
+    <div  class="parallax-container"></div>
+</div><!-- car-banmer -->
+
+
+
+<div class="car-cameras-section">
+	<h3>car cameras</h3>
+	<div class="camera_block-one">
+			<div class="left-pro"><img src="https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/product-img.jpg" /></div>
+			<div class="right-des">
+			<h4>1-front view camera</h4>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+            </div>
+    </div>
+
+        <div class="camera_block-one">
+			<div class="left-pro"><img src="https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/product-img.jpg" /></div>
+			<div class="right-des">
+			<h4>1-front view camera</h4>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+            </div>
+
+        </div>
+
+	<div class="camera_block-one">
+			<div class="left-pro"><img src="https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/product-img.jpg" /></div>
+			<div class="right-des">
+			<h4>1-front view camera</h4>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+            </div>
+
+    </div>
+
+        <div class="camera_block-one">
+			<div class="left-pro"><img src="https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/product-img.jpg" /></div>
+			<div class="right-des">
+			<h4>1-front view camera</h4>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+            </div>
+
+        </div>
+
+        	<div class="camera_block-one">
+			<div class="left-pro"><img src="https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/product-img.jpg" /></div>
+			<div class="right-des">
+			<h4>1-front view camera</h4>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+            </div>
+
+    </div>
+
+        <div class="camera_block-one">
+			<div class="left-pro"><img src="https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/product-img.jpg" /></div>
+			<div class="right-des">
+			<h4>1-front view camera</h4>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+            </div>
+
+        </div>
+
+</div>
+
+<div class="clear"></div>
+
+<div class="work-sec parallax-wrapper">
+<div class="content-block parallax-container-two">
+<h3>How it works</h3>
+ <div class="multi-div clearboth">
+	<div class="cont-blck">
+		<h2>Front Camera</h2>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+
+		<a href="http://ovsokolov-gmail-com2.mybigcommerce.com/category/">cta</a>
+
+	</div>
+	<div class="">
+		<iframe width="550" height="305" src="https://www.youtube.com/embed/UIEnoRI5oIg?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+	</div>
+	<div class="">
+		<div class="cont-blck on_mob_device">
+		<h2>Panel Camera</h2>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+
+		<a href="http://ovsokolov-gmail-com2.mybigcommerce.com/category/">cta</a>
+
+	</div>
+		<iframe width="550" height="305" src="https://www.youtube.com/embed/UIEnoRI5oIg?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+	</div>
+	<div class="cont-blck on_desktop">
+		<h2>Panel Camera</h2>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+
+		<a href="http://ovsokolov-gmail-com2.mybigcommerce.com/category/">cta</a>
+
+	</div>
+ </div>
+</div>
+
+</div>
+
+
+
+
+</div> 
+<div class="home-cat">
+    <h2>Make Of Vehicle</h2>
+	{{#each categories}}
+		<ul>
+		{{#if children}}
+			{{#each children}}
+		
+				{{#if children}}
+				<li>
+				 <a  href="{{url}}" alt="{{name}}" title="{{name}}"> <img src="{{getImage image "thumbnail"}}"><div><h6>{{name}}</h6></div> </a>
+				 </li>
+				{{else}}
+				<li>
+				 <a  href="{{url}}" alt="{{name}}" title="{{name}}"> <img src="{{getImage image "thumbnail"}}"><div><h6>{{name}}</h6></div> </a>
+				</li>
+				{{/if}}
+			
+			{{/each}}
+			</ul>
+		{{else}}
+		{{/if}}
+	{{/each}}      
+</div>
+
+    
+
+<div class="main full">
+    {{#if products.featured}}
+        {{> components/products/featured products=products.featured columns=theme_settings.homepage_featured_products_column_count}}
+    {{/if}}
+
+    {{#if products.top_sellers}}
+        {{> components/products/top products=products.top_sellers columns=theme_settings.homepage_top_products_column_count}}
+    {{/if}}
+
+    {{#if products.new}}
+        {{> components/products/new products=products.new columns=theme_settings.homepage_new_products_column_count}}
+    {{/if}}
+</div>
+{{/partial}}
+{{> layout/base}}
+
+  <script>
+     $(document).ready(function(){
+         
+         var imgHtml = "<img src='https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/car-banner.jpg' />";
+         $('.parallax-container').append(imgHtml);
+         
+         $('.parallax-wrapper').closest('.container').removeClass('container');
+       
+     }); 
+      
+  </script>

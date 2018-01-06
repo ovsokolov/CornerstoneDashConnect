@@ -1,0 +1,125 @@
+<section class="heroCarousel"
+    data-slick='{
+        "dots": true,
+        "mobileFirst": true,
+        "slidesToShow": 1,
+        "slidesToScroll": 1,
+        "autoplay": true,
+        "autoplaySpeed": {{carousel.swap_frequency}},
+        "lazyLoad": "anticipated"
+    }'>
+    {{#each carousel.slides}}
+    <div class="heroCarousel-slide {{#if ../theme_settings.homepage_stretch_carousel_images}}heroCarousel-slide--stretch{{/if}}"
+        style="background-image: url({{image}})">
+        <a href="{{url}}">
+            <img class="heroCarousel-image" data-lazy="{{image}}" alt="{{alt_text}}" title="{{alt_text}}"/>
+            {{#if heading}}
+                {{> components/carousel-content show_background=true}}
+            {{else}}
+                {{#if text}}
+                    {{> components/carousel-content show_background=true}}
+                {{else}}
+                    {{#if button_text}}
+                        {{> components/carousel-content show_background=false}}
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        </a>
+    </div>
+    {{/each}}
+</section>
+        
+ <!--div class="search-box-area"> 
+   <h4>Vehicle Lookup</h4>
+  <form>
+      <div class="form-group">
+        <div class="frm-fled">
+          <select>
+              <option>Choose Make</option>
+               <option>BMW</option>
+                <option>Skoda</option>
+          </select> 
+        </div>
+        <div class="frm-fled">
+          <select>
+              <option>Choose Year</option>
+               <option>1990</option>
+               <option>1984</option>
+               <option>1999</option>
+          </select> 
+        </div>
+        <div class="frm-fled">
+          <select>
+              <option>Choose Model</option>
+              <option>BMW - MX</option>
+              <option>MZD</option>
+          </select> 
+        </div>
+        <div class="frm-fled">
+          <select>
+              <option>Vehicle With Naviagtion</option>
+              <option>GPS</option>
+              <option>GPS Tracker</option>
+          </select> 
+        </div>
+        <div class="act-btn">
+            <span>
+                <button type="reset">Reset</button>
+            </span>
+            <span>
+                <button type="submit">Search</button>
+            </span>
+        </div>
+      </div>
+  </form>
+  <!--<div ng-app="app" ng-controller="ctrl">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+    <script src="http://store-wzahvsc21f.mybigcommerce.com/content/filters.js"></script>
+    <script src="http://store-wzahvsc21f.mybigcommerce.com/content/script.js"></script>
+  <form>
+    <div class="form-group">
+     <div class="frm-fled">    
+      <label for="name">Choose make</label>
+      <select id="caregory" data-ng-model="selected.category" ng-options="option as option.name for option in data |  orderBy:'name'">
+        <option value="">None</option>
+      </select>
+     </div><!-- End Of frm-fled Div -->
+   <!--  <div class="frm-fled">
+      <label for="filters">Choose Model</label>
+      <select id="filters" ng-model="selected.type" ng-options="option as option.model for option in selected.category.brands | unique: 'model'">
+        <option value="">None</option>
+      </select>
+     </div><!-- End Of frm-fled Div --> 
+     <!-- 
+      <label for="filters">Price</label>
+      <select id="filters" ng-model="selected.price" ng-options="option as option.price for option in selected.category.brands | unique: 'price'">
+        <option value="">None</option>
+      </select>
+     --> 
+    <!-- <div class="frm-fled"> 
+	 <label for="filters">Choose Year</label>
+      <select id="filters" ng-model="selected.year" ng-options="option as option.year for option in selected.category.brands | unique: 'year'">
+        <option value="">None</option>
+      </select>
+     </div><!-- End Of frm-fled Div -->
+   <!--  <div class="frm-fled"> 
+	 <label for="filters">Vehicle With Naviagtion</label>
+      <select id="filters" ng-model="" ng-options="">
+        <option value="">None</option>
+      </select>
+     </div><!-- End Of frm-fled Div -->
+   <!--  <div class="frm-fled" ng-if="">
+      <button class="btn btn-primary" ng-click="">Reset</button>
+    </div><!-- End Of frm-fled Div -->
+   <!--  <div class="frm-fled" ng-if="selected.year">
+      <button class="btn btn-primary" ng-click="search(selected.year)">Search</button>
+    </div><!-- End Of frm-fled Div -->
+  <!--  </div>
+      
+    <div ng-if="searchPredicate">
+      Searching for <b>{{searchPredicate.model}}</b> in <b>{{searchPredicate.description}}</b> with price <b>{{searchPredicate.year}}</b>
+      </div>
+  </form>
+
+</div>-->
+</div><!-- End Of search-box-area Div -->

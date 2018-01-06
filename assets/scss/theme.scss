@@ -1,0 +1,836 @@
+// =============================================================================
+// STENCIL
+// =============================================================================
+
+
+// Tools
+// -----------------------------------------------------------------------------
+//
+// 1. Import Citadel's toolkit for use.
+//
+// -----------------------------------------------------------------------------
+
+@import "../../node_modules/@bigcommerce/citadel/dist/tools/toolkit"; // 1
+@import "tools/tools";
+
+// Settings
+// -----------------------------------------------------------------------------
+//
+// 1. Stencil global settings get imported first.
+// 2. Import all Citadel and Foundation settings.
+// 3. Import Citadel's version of foundation.
+//      - This enables the ability to "null" variables in the Stencil settings.
+// 4. Import Stencil's component settings overrides.
+// 5. Import tools which set/reset Citadel's global settings, to be consumed by
+//    the rest of Stencil.
+//
+// -----------------------------------------------------------------------------
+
+@import "settings/global/global"; // 1
+
+@import "../../node_modules/@bigcommerce/citadel/dist/settings/global/global"; // 2
+
+@import "settings/global/tools"; // 5
+
+@import "../../node_modules/@bigcommerce/citadel/dist/settings/normalize/normalize"; // 2
+@import "../../node_modules/@bigcommerce/citadel/dist/settings/foundation/foundation"; // 2
+@import "../../node_modules/@bigcommerce/citadel/dist/settings/bigcommerce/bigcommerce"; // 2
+
+@import "../../node_modules/@bigcommerce/citadel/dist/vendor/foundation/foundation"; // 3
+
+@import "settings/normalize/normalize"; // 4
+@import "settings/vendor/vendor"; // 4
+@import "settings/foundation/foundation"; // 4
+@import "settings/citadel/citadel"; // 4
+@import "settings/stencil/stencil"; // 4
+@import "settings/layouts/layouts"; // 4
+
+
+// Utilities
+// -----------------------------------------------------------------------------
+
+@import "utilities/utilities";
+@import "../../node_modules/@bigcommerce/citadel/dist/utilities/utilities";
+
+
+// Fonts
+// -----------------------------------------------------------------------------
+
+@import "fonts/fonts";
+
+
+// Components
+// -----------------------------------------------------------------------------
+//
+// 1. Import Citadel's normalize dependency.
+// 2. Import Citadel's components.
+// 2. Import Stencil's component additions and custom components.
+//
+// -----------------------------------------------------------------------------
+
+@import "../../node_modules/@bigcommerce/citadel/dist/vendor/normalize/normalize"; // 1
+@import "../../node_modules/@bigcommerce/citadel/dist/components/components"; // 2
+@import "components/components"; // 3
+
+
+// Layouts
+// -----------------------------------------------------------------------------
+//
+// 1. Stencil design layout files (example: Header or Footer).
+//
+// -----------------------------------------------------------------------------
+
+@import "layouts/layouts"; // 1
+
+@import "vendor/jstree/style";
+/*
+ul.navUser-section.navUser-section--alt {
+    float: left;
+    font-size: 9px;
+}
+h1.header-logo.header-logo--left {
+    
+    float: left;
+}
+h1.header-logo.header-logo--left {
+    float: left;
+    margin: 0 0 0 72px;
+    padding: 0;
+}
+.header {
+    position: sticky !important;
+}
+*/
+
+ header{
+         background-color: rgba(0,0,0,0.65) !important; 
+         /*position: fixed !important;*/
+         border-bottom: none !important;
+ }
+ .navUser-action,.navPages-action {color: #fff;}
+ .navUser {
+           background-color: rgba(0,0,0,0.2);
+           -webkit-transition: all 0.5s linear;
+            -moz-transition: all 0.5s linear;
+            -o-transition: all 0.5s linear;
+             transition: all 0.5s linear;   
+ }
+ .navUser-item--cart .navUser-action {color: #fff;}
+ .navUser-section--alt{float: left;}
+ .navUser-or {color: #fff;}
+ .header-logo {margin: 0 4.5rem; padding: 1.4rem 0; position: absolute; top: 0;}
+ .navPages-action-depth-max.has-subMenu.is-open {background-color: #f00; color: #fff;}
+ .navPage-subMenu {background-color: #313131;}
+ .navPage-subMenu-item-child .navPage-subMenu-action.is-open, .navPage-subMenu-item-child .navPage-subMenu-action:hover, .navPage-subMenu-item-parent .navPage-subMenu-action.is-open, .navPage-subMenu-item-parent .navPage-subMenu-action:hover {
+    background: #f00;
+    color: #fff;
+    font-weight: 500;
+    opacity: 1;
+}
+ .navPages-action:hover {color: #fff; background-color: #f00;}
+ .navPages-action {padding: 2rem 1.4rem;}
+ .navPages-action svg,.navPages-action svg:hover {fill: #fff; stroke: #fff;}
+ .navUser-action {padding: 0.5rem .78571rem; font-weight: 300; font-size: 12px;}
+ .navPage-subMenu-list .navPage-subMenu-action{padding: 1rem;}
+ .footer {background-color: #3d3d3d; colo: #fff;}
+ .footer-info-col>:first-child {color: #fff; font-size: 1.25em;}
+ .footer-info article a, .footer-info article{color: #fff;}
+ li.slick-active {display: none;}
+
+li.navUser-item.two {
+    color: #fff;
+    padding: 5px 3px 3px 33px;
+    float: r;
+}
+nav.navUser ul:nth-child(2) {float: right;}
+
+.footer {padding: 3rem 0 0 0;}
+.footer .foot-cpy{background-color: #313131;}
+.pymt {float: left; width: 48.5%;}
+.socl {float: right; width: 48.5%; text-align: right;}
+.foot-cpy{padding: 15px 0;}
+.socl a{display: inline-block; margin: 0 10px; color: #fff; text-decoration: none;}
+.foot-cpy .footer-copyright{display: inline-block;}
+.foot-cpy .footer-copyright>.powered-by {
+    color: #fff;
+    font-size: 15px;
+    margin: 10px 0 0 0;
+}
+/*Search Box CSS*/
+.search-box-area {
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+    display: block;
+    width: 88%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    color: #fff;
+    text-align: center;
+}
+.search-box-area h4 {
+    font-size: 2em;
+    color: #fff;
+}
+.search-box-area .form-group .frm-fled{display: inline-block; width: 250px; margin: 0 5px;}
+.search-box-area .form-group button {
+    display: inline-block;
+    background-color: #2c8ffc;
+    padding: 10px 35px;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+.search-box-area .form-group .frm-fled select{color: #313131; font-size: 16px; padding: 10px; outline: none;}
+.search-box-area .form-group .frm-fled label {
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 5px 0;
+    display: block;
+}
+
+.act-btn {margin: 25px 0 0 0;}
+.act-btn button{margin: 0 10px; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.search-box-area .form-group button[type="reset"] {border: 1px solid #ccc; background-color: #515151;}
+.search-box-area .form-group button[type="reset"]:hover{background-color: #212121;}
+.search-box-area .form-group button[type="submit"]:hover{background-color: #0570e7;}
+.banners {
+    background-image: url("https://cdn6.bigcommerce.com/s-d0lq2s/product_images/theme_images/gray-banner-001.png");
+    height:275px;
+    background-size: cover;
+} 
+
+.multi-div > div{
+                 display: block;
+                 float: left;
+                 width: 48.5%; 
+                 margin-bottom: 2.5%;
+                 min-height: 325px;
+                 
+}
+.multi-div > div:nth-child(1) {padding-right: 10%;}
+.multi-div > div:nth-child(4) {padding-left: 5%; padding-right: 5%;}
+.multi-div .cont-blck {text-align: left;}
+.multi-div .cont-blck,.multi-div .cont-blck > h2,.multi-div .cont-blck a{color: #fff;}
+.multi-div .cont-blck a{
+         border: 1px solid #3f3f3f;
+         color: #5c5c5c;
+         text-decoration: none;
+         padding: 13px 70px;
+         font-size: 20px;
+         text-transform: uppercase;
+         border-radius: 2px;
+}
+.multi-div .cont-blck p {
+    color: #999;
+    margin: 25px 0 50px 0;
+}
+
+.clearboth::after,.clearboth::before{
+    content: '';
+    display: table;
+}
+.clearboth::after{clear: both;}
+
+/***********custom.csss************/
+
+.car-banner img {
+	width: 100%;
+}
+.car-cameras-section {
+	width: 1170px;
+	margin: 0 auto;
+}
+
+.left-pro {
+	float: left;
+}
+.camera_block-one {
+	width: 45%;
+	float: left;
+	border: 1px solid #ccc;
+	margin-right: 56px;
+	margin-top: 35px;
+}
+.left-pro img {
+	border-right: 1px solid #ccc;
+	padding: 5px 15px 20px 0;
+	margin: 25px 19px 0 0;
+}
+.car-cameras-section h3 {
+	text-align: center;
+	margin: 19px 0 0;
+	font-size: 44px;
+}
+.clear{
+	clear: both;
+}
+
+.work-sec {
+	background: #2c2c2c;
+	margin-top: 5%;
+	min-height: 400px;
+	padding-bottom: 2.5%;
+}
+
+.content-block {
+	width: 1170px;
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+}
+.right-block-content img {
+	width: 40%;
+}
+.left-block-content {
+    float: left;
+    width: 35%;
+    padding-left: 20px;
+    margin-left: 7%;
+    color: #fff;
+    top: 39px;
+    margin-right: 3%;
+}
+.content-block h3 {
+	text-align: center;
+	font-size: 35px;
+	color: #fff;
+	margin: 0;
+	padding: 30px 0;
+}
+.left-block-content {
+	color: #fff;
+}
+.left-block-content h2 {
+	margin: 0;
+}
+.left-block-content a {
+	border: 1px solid #3f3f3f;
+	color: #5c5c5c;
+	text-decoration: none;
+	padding: 13px 70px;
+	font-size: 20px;
+	text-transform: uppercase;
+	border-radius: 2px;
+}
+.left-block-content p {
+	margin: 26px 0 9%;
+}
+.left-block-content {
+	position: relative;
+	top: 39px;
+}
+
+
+/***********************************************/
+
+/***************NEW-CSS**************************/
+
+/**********************************************************************/
+
+.navPages-action {
+	padding: 30px 10px;
+}
+
+.banner {
+	position: relative;
+}
+.banners {
+	height: 275px;
+}
+.header-logo {
+	margin: 0 2.5rem;
+}
+
+#menu .navUser-item--cart {
+	position: relative;
+	top: 25px;
+	left: 25px;
+}
+
+.custom_cart {
+    position: absolute;
+    right: 145px;
+    top: 57px;
+    z-index: 99;
+}
+
+.custom_cart .fa.fa-shopping-cart {
+    font-size: 20px;
+}
+.left-block-content h2 {
+    color: #fff;
+}
+
+.parallax-container {
+	background: #2c2c2c;
+} 
+
+.body {
+	margin: 0;
+}
+
+/***************************************************/
+
+/**************MOBILE-DEVICES***************************/
+
+/*********************************************************************/
+
+/*@media only screen  and (min-width: 1024px)  and (max-width: 1366px) {
+ .header {
+    width: 100% !important;
+}  
+.navPage-subMenu, .navUser {
+    background-color: transparent !important;
+}
+.header-logo {
+    left: auto !important;
+    top: auto !important;
+}
+.navUser-section--alt {
+    float:left !important;
+}
+.navUser, .ribbon {
+    top: 0px!important;
+    padding: 0 !important;
+}
+.navPages-action, .navUser-action {
+    color: #fff !important;
+}
+.navUser-action {
+    padding: 0 6px !important;
+}
+.navUser-item.two {
+    padding: 5px 3px 3px 10px !important;
+}
+
+}*/
+
+@media only screen  and (min-width: 1024px)  and (max-width: 1300px) {
+.header {
+    width: 100% !important;
+}
+
+.navUser-section--alt {
+    float: left !important;
+}
+
+.navUser-item.two {
+    color: #fff;
+    padding: 5px 3px 3px 10px !important;
+    font-size: 12px !important;
+    padding-top: 12px !important;
+}
+
+.navPage-subMenu, .navUser {
+    background-color: #474747 !important;
+}
+
+.header-logo {
+    left: 0 !important;
+    top: 0 !important;
+}
+.navPages {
+    padding: 0px 0 0 !important;
+}
+
+.navPages-list {
+    float: none !important;
+    margin-left: 10% !important;
+}
+.navPages-action {
+    padding: 30px 7px;
+    font-size: 13px;
+}
+.navPages-action, .navUser-action {
+    color: #fff !important;
+}
+header #menu h1.header-logo.header-logo--left {
+    display: block !important;
+}
+
+header .header-logo.header-logo--left {
+    display: none !important;
+}
+.search-box-area .form-group .frm-fled {
+    width: 200px;
+}
+.search-box-area {
+    width: 100%;
+}
+}
+@media (max-width: 1152px) {
+ .custom_cart {
+    right: 50px;
+}   
+}
+
+@media (max-width: 800px) {
+.navUser, .ribbon {
+    margin-top: 0 !important;
+    top: 16px !important;
+}
+.custom_cart {
+    display:none;
+}
+}
+
+@media only screen  and (min-width: 768px)  and (max-width: 1024px) {
+    
+ .camera_block-one {
+    width: 80%;
+    float: none;
+    margin: 0 auto 30px;
+}
+.car-cameras-section {
+    width: 100%;
+}
+.home-cat ul li {
+    width: 45% !important;
+}
+.left-block-content {
+    float: none;
+    width: 100%;
+    top:0px;
+    padding-right: 10%;
+}
+.left-block-content p {
+    margin: 26px 0 5%;
+}
+.right-block-content {
+    text-align: center;
+    margin-top: 35px;
+}
+.left_work_block {
+    float: none !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    margin-right: 0 !important;
+    text-align: center !important;
+}
+.right_work_block {
+    padding-left: 12%;
+    display: none;
+}
+.work_block_content_two {
+    min-height: 560px !important;
+}
+.parallax-container {
+    margin-left: calc(-50vw + 50% - 0px) !important;
+}
+.navPages-action, .navUser-action {
+    color: #000;
+}
+.navPages {
+    padding: 75px 30px 0;
+}
+.header-logo {
+    left: 120px;
+}
+.on_mob {
+    display: block !important;
+    margin-bottom: 40px;
+}
+.home-cat ul {
+    width: 90%;
+    margin: 0 auto;
+}
+/******************************/
+/***********NAV-CSS**************/
+/******************************************/
+
+.navUser-section--alt {
+    float: right;
+}
+/*.navUser, .ribbon {
+    margin-top: 0 !important;
+    top: 16px !important;
+}*/
+.navUser {
+    background-color: #fff;
+}
+body {
+    padding-top: 0;
+}
+.mobileMenu-toggle .mobileMenu-toggleIcon {
+    top: 16px;
+}
+.header-logo {
+    left: 300px;
+    top: -30px;
+}
+.navUser-item-cartLabel {
+    color: #000;
+    font-size: 18px;
+}
+.navPages-container.is-open {
+    padding-top: 37px;
+}
+.custom_cart {
+    right: 15px;
+}
+.custom_cart .fa.fa-shopping-cart {
+    color: #fff;
+}
+.header {
+    width:100%;
+}
+.navPage-subMenu {
+	background-color: #fff;
+}
+.breadcrumbs {
+    display: block;
+    margin-top: 55px;
+}
+iframe {
+    width: 100%;
+}
+.on_mob_device {
+    display: block !important;
+    margin-bottom: 45px;
+}
+.on_desktop {
+    display: none !important;
+}
+.content-block {
+    width: 100%;
+}
+.multi-div>div {
+    float: none;
+    width: 100%;
+    min-height: 200px;
+    padding: 0 60px;
+}
+.navPages-action svg, .navPages-action svg:hover {
+    fill: #000;
+    stroke: #000;
+}
+#menu .header-logo.header-logo--left {
+    display: none !important;
+}
+.header-logo.header-logo--left {
+	display: block !important;
+}
+.search-box-area .form-group .frm-fled select {
+    font-size: 13px;
+}
+}
+
+
+
+
+@media only screen  and (min-width: 320px)  and (max-width: 767px) {
+.navPages-action, .navUser-action {
+    color: #000;
+}
+body {
+    padding-top: 37px;
+}
+.car-cameras-section {
+    width: 100%;
+}
+.camera_block-one {
+    width: 85%;
+    float: none;
+    padding: 0 4px;
+    margin: 0 auto 20px;
+}
+.left-pro {
+    float: none;
+    text-align: center;
+}
+.left-pro img {
+    border-right: none;
+    padding: 0;
+}
+.right-des {
+    text-align: center;
+}
+.content-block {
+    width: 100%;
+}
+.left-block-content {
+    float: none;
+    width: 100%;
+    top: 10px;
+    margin-left: 0%;
+}
+.right-block-content iframe {
+    width: 100%;
+    height: auto;
+}
+.content-block h3 {
+    font-size: 25px;
+    padding: 20px 0 0;
+}
+.navUser-section--alt {
+    float: right;
+}
+.custom_cart {
+    display: none;
+}
+.navUser {
+    background-color: #fff;
+    margin-top: 0 !important;
+    top: 16px;
+}
+.header-logo {
+    left: 0;
+    top: -33px;
+    right: 0;
+    margin: 0 auto;
+    width: 89%;
+    text-align: center;
+}
+.search-box-area {
+    top: -25px;
+}
+.navPages {;
+    padding: 75px 30px 0;
+}
+.navPages-container.is-open {
+    padding-top: 0px;
+}
+.work-sec {
+    padding: 0 20px;
+}
+.right-block-content {
+    margin-top: 70px;
+}
+
+.search-box-area .form-group .frm-fled select {
+    padding: 5px;
+}
+.search-box-area .form-group button {
+    padding: 6px 30px;
+}
+.act-btn {
+    margin: 13px 0 0;
+}
+.right-block-content iframe {
+    width:100% !important;
+}
+.right_work_block {
+    padding-right: 0;
+    padding-left: 5% !important;
+}
+.left_work_block iframe {
+    width: 100% !important;
+    height: 165px !important;
+}
+.home-cat ul li {
+    display: block !important;
+    width: 100% !important;
+}
+.left_work_block {
+    float: none !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    margin-right: 0 !important;
+}
+.parallax-container {
+    margin-left: calc(-50vw + 50% - 0px) !important;
+}
+.navUser-item-cartLabel {
+    display: inline-block;
+    color: #000;
+}
+.mobileMenu-toggle .mobileMenu-toggleIcon {
+    top: 15px;
+}
+.act-btn span:last-child a {
+    padding: 10px 33px !important;
+}
+.on_mob {
+    display: block !important;
+    margin-bottom: 40px;
+}
+.right_work_block {
+    display: none;
+}
+.banners {
+    margin-top: 0%;
+}
+.navPage-subMenu {
+	background-color: #fff;
+}
+.breadcrumbs {
+    display: block;
+}
+.multi-div>div {
+    float: none;
+    width: 100%;
+    min-height: 240px;
+}
+iframe {
+    width: 100%;
+}
+.on_mob_device {
+    display: block !important;
+    margin-bottom: 45px;
+}
+.on_desktop {
+    display: none !important;
+}
+.navPages-action svg, .navPages-action svg:hover {
+    fill: #000;
+    stroke: #000;
+}
+#menu .header-logo.header-logo--left {
+    display: none;
+}
+.header-logo.header-logo--left {
+	display: block !important;
+}
+.custom_inline_pro li {
+    width: 48% !important;
+}
+.home-cat ul {
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+}
+}
+
+.home-cat ul li {
+    display: inline-block;
+    width: 19%;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 0 3px 6px;
+    padding: 17px 0;
+}
+.home-cat ul li h6 {
+    font-weight: 600;
+}
+.home-cat ul li a {
+    text-decoration:none;
+}
+.home-cat h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 28px;
+}
+.act-btn span:last-child a {
+	background: #26a7f9;
+	padding: 13px 43px;
+	font-size: 15px;
+	text-decoration: none;
+	border-radius: 3px;
+	text-transform: uppercase;
+}
+.on_mob {
+    display: none;
+}
+.on_mob_device {
+	display: none;
+}
+#menu .header-logo.header-logo--left {
+    display: block;
+}
+.header-logo.header-logo--left {
+	display: none;
+}
+.navPages-list {
+    float: none;
+}
