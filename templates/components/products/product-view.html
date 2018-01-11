@@ -234,9 +234,10 @@
                     {{/each}}
                 {{inject 'productOptions' product.options}}
                 {{inject 'productCustomFields' product.custom_fields}}
+				<div id="newpost" class="section-one">
                 <div id="options-categories" style="diaplay:none;">
                 </div>
-                <div id="newpost" class="section-one">
+                <!--div id="newpost" class="section-one"-->
                 <div class="newoptions"  data-product-option-change style="diaplay:none;">
                     {{#each product.options}}
                         {{{dynamicComponent 'components/products/options'}}}
