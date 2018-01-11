@@ -21,7 +21,18 @@ export default class ProductDetails {
         const $productOptionsElement = $('[data-product-option-change]', $form);
         const hasOptions = $productOptionsElement.html().trim().length;
 
+        const productOptions = this.context.productOptions;
+        console.log('### Product Options  ####')
+        console.log(productOptions);
+
+
         $productOptionsElement.change(event => {
+            this.productOptionsChanged(event);
+        });
+
+        // add event listener for category option list change
+        const $productCategoryElement = $('[data-product-category-change]', $form);
+        $productCategoryElement.change(event => {
             this.productOptionsChanged(event);
         });
 
@@ -99,6 +110,8 @@ export default class ProductDetails {
         const $changedOption = $(event.target);
         const $form = $changedOption.parents('form');
         const productId = $('[name="product_id"]', $form).val();
+
+        console.log("productOptionsChanged");
 
         // Do not trigger an ajax request if it's a file or if the browser doesn't support FormData
         if ($changedOption.attr('type') === 'file' || window.FormData === undefined) {

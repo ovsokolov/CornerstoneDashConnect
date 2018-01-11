@@ -1,16 +1,27 @@
-<div class="form-field" data-product-attribute="product-list">
-    <label class="form-label form-label--alternate form-label--inlineSmall">
-        {{display_name}}:
-        <span data-option-value></span>
+<script type="text/javascript">
+//console.log(({{values.length}}));
+function removeOption(id){
+    console.log("id: ", id);
+    document.getElementById(`attribute_0_${id}`).click();
+}
+</script>
 
-        {{#if required}}
-            <small>{{lang 'common.required'}}</small>
-        {{/if}}
-    </label>
+<div class="form-field" data-product-attribute="product-list" data-step-name="{{display_name}}">
+    <div style="display: none;">
+        <label class="form-label form-label--alternate form-label--inlineSmall">
+            {{display_name}}:
+            <span data-option-value></span>
+
+            {{#if required}}
+                <small>{{lang 'common.required'}}</small>
+            {{/if}}
+        </label>
+    </div>
 
     {{#if values.0.image}}
         <ul class="productOptions-list">
             {{#unless required}}
+            <div style="display: none;">
                 <li class="productOptions-list-item">
                     <input class="form-radio"
                            type="radio"
@@ -20,6 +31,7 @@
                            checked="{{#if defaultValue '==' 0}}checked{{/if}}" required>
                     <label class="form-label" for="attribute_0_{{id}}">{{lang 'products.none'}}</label>
                 </li>
+            </div>
             {{/unless}}
             {{#each values}}
                 <li class="productOptions-list-item" data-product-attribute-value="{{id}}">
@@ -37,20 +49,27 @@
                             id="attribute_{{id}}"
                             {{#if selected}}checked{{/if}}
                             {{#if ../required}}required{{/if}}>
-                        <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}</label>
+                        <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}
+                            </br>
+                            <span id="price_{{data}}"></span>
+                        </label>
+                        <a href="#" class="button" onclick="removeOption({{../id}})">Remove</a>
+                        <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
                     </div>
                 </li>
             {{/each}}
         </ul>
     {{else}}
         {{#unless required}}
-        <input class="form-radio"
-               type="radio"
-               name="attribute[{{id}}]"
-               value="0"
-               id="attribute_0_{{id}}"
-               {{#if defaultValue '==' 0}}checked{{/if}}>
-        <label class="form-label" for="attribute_0_{{id}}">{{lang 'products.none'}}</label>
+        <div style="display: none;">
+            <input class="form-radio"
+                   type="radio"
+                   name="attribute[{{id}}]"
+                   value="0"
+                   id="attribute_0_{{id}}"
+                   {{#if defaultValue '==' 0}}checked{{/if}}>
+            <label class="form-label" for="attribute_0_{{id}}">{{lang 'products.none'}}</label>
+        </div>
         {{/unless}}
         {{#each values}}
             <input
@@ -61,7 +80,12 @@
                 id="attribute_{{id}}"
                 {{#if selected}}checked{{/if}}
                 {{#if ../required}}required{{/if}}>
-            <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}</label>
+            <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}
+                </br>
+                <span id="price_{{data}}"></span>
+            </label>
+            <a href="#" class="button" onclick="removeOption({{../id}})">Remove</a>
+            <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
         {{/each}}
     {{/if}}
 </div>

@@ -1,0 +1,91 @@
+{ 
+    "optionsets": {
+        "S1": {
+        	"categories": [ 
+        		{
+        			"name": "C1",
+        			"options": [1,2]
+        		},
+         		{
+        			"name": "C2",
+        			"options": [3,4]
+        		},
+                {
+                    "name": "C3",
+                    "options": [1,2]
+                },
+                {
+                    "name": "C4",
+                    "options": [3,4]
+                },
+                {
+                    "name": "C5",
+                    "options": [3,4]
+                }
+        	]
+    	},
+        "S2": {
+        	"categories": [ 
+        		{
+        			"name": "C3",
+        			"options": [5,6]
+        		},
+         		{
+        			"name": "C4",
+        			"options": [7,8]
+        		}
+        	]
+    	}
+    },
+    "categories": {
+    	"C1": {
+    		"name": "Cameras",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/lens-icon.jpg",
+    		"category": "STEP-1"
+    	},
+    	"C2": {
+    		"name": "Add-Ons",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/gps-icon.jpg",
+    		"category": "STEP-2"
+    	},
+    	"C3": {
+    		"name": "External Control",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/resolution-icon.jpg",
+    		"category": "STEP-3"
+    	},
+    	"C4": {
+    		"name": "Cables",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg",
+    		"category": "STEP-4"
+    	},
+        "C5": {
+            "name": "Other",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg",
+            "category": "STEP-5"
+        }
+
+    },
+    "features": {
+        "A1": {
+            "image":"/product_images/uploaded_images/360degreeicon-03.png",
+            "heading":"360-degree lens", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+        },
+        "A2": {
+            "image":"/product_images/uploaded_images/powersensoricon-03.png",
+            "heading":"Power sensors", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+
+        },
+        "A3": {
+            "image":"/product_images/uploaded_images/weylenicon-03.png",
+            "heading":"The Waylens Secure app", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+        },
+        "A4": {
+            "image":"/product_images/uploaded_images/360degreeicon-03.png",
+            "heading":"Heading A4", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+        }
+    }
+}
