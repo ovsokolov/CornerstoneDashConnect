@@ -4,7 +4,12 @@
     </li>
     {{#if product.warranty}}
         <li class="tab">
-            <a class="tab-title" href="#tab-warranty">{{lang 'products.warranty'}}</a>
+            <a class="tab-title" href="#tab-warranty">Documentation</a>
+        </li>
+    {{/if}}
+    {{#if product.videos.list.length}}
+        <li class="tab">
+            <a class="tab-title" href="#tab-video">{{lang 'products.videos.header'}}</a>
         </li>
     {{/if}}
 </ul>
@@ -12,15 +17,28 @@
     <div class="tab-content is-active" id="tab-description">
         {{{product.description}}}
         {{{snippet 'product_description'}}}
+        <div class="custom_field_wrap">
+            {{#each product.custom_fields}}
+                <div class="product_custom_field_box">
+                    <div class="product_custom_fields productView-info-name">{{name}}</div>
+                    <div class="product_custom_fields productView-info-value {{name}}_list">{{{value}}}</div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="DescriptionContent_Outer">
+            <div id="icon-list" class="iconSet"></div>
+            <div id="features-list" class="featureSet"></div>
+        </div>
     </div>
-    <div class="DescriptionContent_Outer">
-        <div id="icon-list"></div>
-        </br></br></br>
-        <div id="features-list"></div>
+    <div class="tab-content" id="tab-video">
+   {{#if product.videos.list.length}}
+        {{> components/products/videos product.videos}}
+    {{/if}}
     </div>
    {{#if product.warranty}}
        <div class="tab-content" id="tab-warranty">
            {{{product.warranty}}}
        </div>
    {{/if}}
+
 </div>

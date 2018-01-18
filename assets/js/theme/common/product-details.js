@@ -199,6 +199,7 @@ export default class ProductDetails {
      *
      */
     addProductToCart(event, form) {
+        console.log('In Add To Cart');
         const $addToCartBtn = $('#form-action-addToCart', $(event.target));
         const originalBtnVal = $addToCartBtn.val();
         const waitMessage = $addToCartBtn.data('waitMessage');

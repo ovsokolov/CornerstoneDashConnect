@@ -54,6 +54,7 @@ function removeOption(id){
                             <span id="price_{{data}}"></span>
                         </label>
                         <a href="#" class="button" onclick="removeOption({{../id}})">Remove</a>
+                        <span class="glyphicon glyphicon-trash"></span>
                         <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
                     </div>
                 </li>
@@ -84,6 +85,7 @@ function removeOption(id){
                 </br>
                 <span id="price_{{data}}"></span>
             </label>
+            <span class="glyphicon glyphicon-trash"></span>
             <a href="#" class="button" onclick="removeOption({{../id}})">Remove</a>
             <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
         {{/each}}
