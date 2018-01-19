@@ -17,13 +17,17 @@ export default class ProductDetails {
         this.listenQuantityChange();
         this.initRadioAttributes();
 
+        this.selectedOptions = {};
+
         const $form = $('form[data-cart-item-add]', $scope);
         const $productOptionsElement = $('[data-product-option-change]', $form);
         const hasOptions = $productOptionsElement.html().trim().length;
 
-        const productOptions = this.context.productOptions;
+        this.$productOptions = this.context.productOptions;
+
+        //const productOptions = this.context.productOptions;
         console.log('### Product Options  ####')
-        console.log(productOptions);
+        console.log(this.$productOptions);
 
 
         $productOptionsElement.change(event => {
@@ -33,7 +37,7 @@ export default class ProductDetails {
         // add event listener for category option list change
         const $productCategoryElement = $('[data-product-category-change]', $form);
         $productCategoryElement.change(event => {
-            this.productOptionsChanged(event);
+            this.customProductOptionsChanged(event);
         });
 
         $form.submit(event => {
@@ -58,6 +62,21 @@ export default class ProductDetails {
         $productOptionsElement.show();
 
         this.previewModal = modalFactory('#previewModal')[0];
+
+        
+        $(document).on('click', '.remove', function() {
+            var optId = $(this).closest('.row.pro').attr('row-option');
+            var noneId = $(this).closest('.row.pro').attr('row-none-option');
+            console.log(noneId);
+            console.log(optId);
+            $('#attribute_0_'+ noneId).trigger('click');
+            setTimeout(function(){
+                $('.row[row-option="'+optId+'"]').remove();
+            },500);
+        });
+        
+
+
     }
 
     /**
@@ -99,6 +118,41 @@ export default class ProductDetails {
         } catch (e) {
             return true;
         }
+    }
+
+    customProductOptionsChanged(event) {
+      console.log('customProductOptionsChanged');
+      const $changedOption = $(event.target);
+      console.log($changedOption);
+      console.log($changedOption.context.id);
+      if($changedOption.context.id.indexOf('attribute_0_') !== -1){
+        console.log('removing option');
+        const optionClass = $changedOption.context.id.split('_')[2];
+        this.$productOptions.forEach((optionSet) => {
+            const values = optionSet.values;
+            console.log(optionClass);
+            if (optionSet.id == optionClass) {
+                values.forEach((value) => {
+                    if( $('[row-none-option='+ optionClass +']') != undefined) {
+                        $('[row-none-option='+ optionClass +']').remove();
+                    }
+                    delete this.selectedOptions[value.id];
+                });                  
+            }
+        });
+        console.log(this.selectedOptions);
+      }else{
+        const optionClass = $changedOption.context.id.split('_')[1];
+        const priceSpanId = '#data-bundle-price-' + optionClass;
+        const proPrice = $(priceSpanId).text();
+        const optHeading = $changedOption.context.dataset.productAttributeLabel;
+        const removeId = $changedOption.context.dataset.productRemoveId;
+        $('<div class="row pro" row-option="'+optionClass+'" row-none-option="'+removeId+'"><div class="box">'+optHeading+'</div><div class="box optPrice">'+proPrice+'<span class="remove">x</span></div></div>').insertAfter('.row.proname');
+        this.selectedOptions[optionClass] = optionClass;
+        console.log('adding option');
+        console.log(this.selectedOptions);
+      }
+      this.productOptionsChanged(event);  
     }
 
     /**
@@ -515,4 +569,5 @@ export default class ProductDetails {
             $radio.attr('data-state', $radio.prop('checked'));
         });
     }
+
 }

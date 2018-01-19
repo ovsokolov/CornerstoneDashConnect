@@ -47,6 +47,8 @@ function removeOption(id){
                             name="attribute[{{../id}}]"
                             value="{{id}}"
                             id="attribute_{{id}}"
+                            data-product-attribute-label="{{label}}"
+                            data-product-remove-id="{{../id}}"
                             {{#if selected}}checked{{/if}}
                             {{#if ../required}}required{{/if}}>
                         <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}
@@ -79,6 +81,8 @@ function removeOption(id){
                 name="attribute[{{../id}}]"
                 value="{{id}}"
                 id="attribute_{{id}}"
+                data-product-attribute-label="{{label}}"
+                data-product-remove-id="{{../id}}"
                 {{#if selected}}checked{{/if}}
                 {{#if ../required}}required{{/if}}>
             <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}

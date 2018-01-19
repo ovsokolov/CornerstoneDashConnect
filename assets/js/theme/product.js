@@ -17,9 +17,14 @@ export default class Product extends PageManager {
         super(context);
         this.url = window.location.href;
         this.$reviewLink = $('[data-reveal-id="modal-review-form"]');
+        this.$productOptions = this.context.productOptions;
+
+        this.$optionViewSet = false;
+
+        //console.log(this.$productOptions);
 
         this.setUpProductView = this.setUpProductView.bind(this);
-        this.setOptionsPrice = this.setOptionsPrice.bind(this);
+        this.setOptionsView = this.setOptionsView.bind(this);
 
     }
 
@@ -51,6 +56,10 @@ export default class Product extends PageManager {
             validator = review.registerValidation(this.context);
         });
 
+        $('body').on('click', '[data-customize-button="customize-button"]', () => {
+            this.setOptionsView();
+        });
+
         $reviewForm.on('submit', () => {
             if (validator) {
                 validator.performCheck();
@@ -69,22 +78,8 @@ export default class Product extends PageManager {
         next();
 
         this.setUpProductView();
-        this.setOptionsPrice();
+        //this.setOptionsPrice();
 
-        $(function() {
-            //$('.optionheading + div').hide();
-            $('.optionheading').click(function(){
-                if($(this).next().is(':hidden')) {
-                    //$('.optionheading').removeClass('current').next().slideUp('slow');
-                    $(this).toggleClass('current').next().slideDown('slow');
-                }
-                else{
-                    $(this).next().slideToggle('slow');
-                    //$(".optionheading + div").not($(this).next()).slideUp('slow');
-                    $('.optionheading').removeClass('current');
-                }
-            });
-        });
 
         $('#form-action-addToCart_custom').click(function(e) {
             console.log('custom click');
@@ -92,6 +87,8 @@ export default class Product extends PageManager {
             $('#form-action-addToCart')[0].click();
             console.log('triggered');
         });
+
+
     }
 
     productReviewHandler() {
@@ -106,12 +103,54 @@ export default class Product extends PageManager {
         let setName = '';
         let features = '';
         for (const customField in productCustomFields) {
+            if(productCustomFields[customField].name == 'FeaturesList'){
+                features = productCustomFields[customField].value;             
+            }
+        }
+        console.log('Feature: ', features);
+        $.ajax({
+            url : 'http://ovsokolov-gmail-com2.mybigcommerce.com/content/optionsetconfig.json',
+            type : 'GET',
+            async: false,
+            dataType: "json",
+            success: function(data){
+                // console.log('Set: ', data.optionsets[setName]);
+                const fList = features.split('_');
+                        
+                $.each(fList, function (index, value) {
+                    console.log('#### FEATURE ####: ', value);
+                    const featureImg = data.features[value].image;
+                    const featureHd = data.features[value].heading;
+                    const featureCnt = data.features[value].contents;
+                    console.log('#### featureImg ####: ', featureImg);
+                    console.log('#### featureHd ####: ', featureHd);
+                    console.log('#### featureCnt ####: ', featureCnt);
+                    $('<div class="DescpTab_Wrap"><div class="TabCircle"><img class="__mce_add_custom__" title="" src="'+featureImg+'" alt="" width="256" height="256"></div><div class="TabText">'+featureHd+'</div></div>').appendTo('#icon-list'); 
+                    $('<div class="DescpContent_Wrap"><div class="DescpContent_img"><img src="'+featureImg+'" /></div><div class="DescpContent_txt"><h6>'+featureHd+'</h6><p>'+featureCnt+'</p></div></div>').appendTo('#features-list'); 
+                });
+                $('#options-categories').show();
+                //console.log('Categories: ', data.categories);
+                //console.log('Set 1:', data.optionsets['S1']);
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                console.log('ERROR = ' + xhr.status + ' - ' + thrownError);
+            }       
+        });
+    }
+
+    setOptionsView() {
+        if( this.$optionViewSet ==  true ){
+            console.log('Option already set');
+            return;
+        }
+        const productCustomFields = this.context.productCustomFields;
+        // console.log(productCustomFields);
+        let setName = '';
+        let features = '';
+        for (const customField in productCustomFields) {
             // console.log(productCustomFields[customField]);
             if(productCustomFields[customField].name == 'OptionsSet'){
                 setName = productCustomFields[customField].value;             
-            }
-            if(productCustomFields[customField].name == 'FeaturesList'){
-                features = productCustomFields[customField].value;             
             }
         }
         console.log('Feature: ', features);
@@ -141,36 +180,16 @@ export default class Product extends PageManager {
                     });
                 });
 
-                const fList = features.split('_');
-                        
-                $.each(fList, function (index, value) {
-                    console.log('#### FEATURE ####: ', value);
-                    const featureImg = data.features[value].image;
-                    const featureHd = data.features[value].heading;
-                    const featureCnt = data.features[value].contents;
-                    console.log('#### featureImg ####: ', featureImg);
-                    console.log('#### featureHd ####: ', featureHd);
-                    console.log('#### featureCnt ####: ', featureCnt);
-                    $('<div class="DescpTab_Wrap"><div class="TabCircle"><img class="__mce_add_custom__" title="" src="'+featureImg+'" alt="" width="256" height="256"></div><div class="TabText">'+featureHd+'</div></div>').appendTo('#icon-list'); 
-                    $('<div class="DescpContent_Wrap"><div class="DescpContent_img"><img src="'+featureImg+'" /></div><div class="DescpContent_txt"><h6>'+featureHd+'</h6><p>'+featureCnt+'</p></div></div>').appendTo('#features-list'); 
-                });
-                $('#options-categories').show();
-                //console.log('Categories: ', data.categories);
-                //console.log('Set 1:', data.optionsets['S1']);
             },
             error: function(xhr, ajaxOptions, thrownError){
                 console.log('ERROR = ' + xhr.status + ' - ' + thrownError);
             }       
         });
-    }
 
-    setOptionsPrice() {
-        const optionsArray = this.context.productOptions;
-        // const breadcrumb = document.getElementById('step-breadcrumb');
-        // console.log('optionsArray');
-        // console.log(optionsArray);
+
+
         let optionCounter = 0;
-        optionsArray.forEach((optionSet) => {
+        this.$productOptions.forEach((optionSet) => {
             const values = optionSet.values;
             // console.log(optionSet);
             values.forEach((value) => {
@@ -183,8 +202,28 @@ export default class Product extends PageManager {
                     (err, resp) => {
                         const result = JSON.parse(resp.replace(/&quot;/g, '"'));
                         // console.log(result);
-                        $(spanId).html('<s>'.concat('Regular Price: +', result.price.without_tax.formatted, '</s> Bundle Price: +', result.price.without_tax.formatted ));
+                        optionSet.price = result.price.without_tax.formatted;
+                        $(spanId).html('<s>'.concat('Regular Price: +', result.price.without_tax.formatted, '</s> Bundle Price: +<span id="data-bundle-price-', value.id, '">', result.price.without_tax.formatted, '</span>' ));
                     });
+            });
+        });
+        console.log(this.$productOptions);
+
+        $('[data-product-category-change]').show();
+        this.$optionViewSet = true;
+
+        $(function() {
+            //$('.optionheading + div').hide();
+            $('.optionheading').click(function(){
+                if($(this).next().is(':hidden')) {
+                    //$('.optionheading').removeClass('current').next().slideUp('slow');
+                    $(this).toggleClass('current').next().slideDown('slow');
+                }
+                else{
+                    $(this).next().slideToggle('slow');
+                    //$(".optionheading + div").not($(this).next()).slideUp('slow');
+                    $('.optionheading').removeClass('current');
+                }
             });
         });
     }
