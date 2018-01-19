@@ -159,3 +159,11 @@
  background: rgba(0,0,0,.8);
 }    
 </style>
+
+<script>
+$('a').contents().filter(function() {
+    return this.nodeType == 3
+}).each(function(){
+    this.textContent = this.textContent.replace("Remove","X");
+});  
+</script>
