@@ -23,7 +23,30 @@
     <div class="header-logo header-logo--{{theme_settings.logo-position}}">
         {{> components/common/store-logo}}
 </div>
+<button class="open_cart" type="button">Cart Details</button>
+
+<div class="cart-total-value">
+            {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                <span>{{cart.sub_total.formatted}}</span>
+            {{else}}
+                {{> components/common/login-for-pricing}}
+            {{/or}}
+        </div>
+
 </header>
+
+<li class="navUser-item navUser-item--cart custom_cart">
+            <a
+                class="navUser-action"
+                data-cart-preview
+                data-dropdown="cart-preview-dropdown"
+                data-options="align:right"
+                href="{{urls.cart}}">
+                <span class="navUser-item-cartLabel"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> <span class="countPill{{#if cart.items}} countPill--positive{{/if}} cart-quantity">{{cart.quantity}}</span>
+            </a>
+
+            <div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true"></div>
+ </li>
 
 <li class="navUser-item navUser-item--cart custom_cart">
             <a
@@ -44,3 +67,6 @@
     </div>
 </div>
 {{/if}}
+<!--
+<a href="#" onclick="showPreview()"  style="position:fixed;z-index:1;" class="button optionPopup_brn button--primary">Preview</a>
+-->
