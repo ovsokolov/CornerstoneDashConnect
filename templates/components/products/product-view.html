@@ -223,7 +223,7 @@
         </div>
         <div class="innerRight">
             <div class="cartPreview">
-                <h2>Your Cart</h2>
+                <h2>Your Configuration</h2>
                 <div class="row proname">
                     <div class="box">{{product.title}}</div>
                     <div class="box optPrice">
@@ -245,7 +245,7 @@
                 <!-- add quantity -->
                 <div class="form-field form-field--increments">
                     <label class="form-label form-label--alternate"
-                           for="qty[]">{{lang 'products.quantity'}}</label>
+                           for="customqty[]">{{lang 'products.quantity'}}</label>
 
                     <div class="form-increment" data-quantity-change>
                         <button class="button button--icon" data-action="dec">
@@ -257,8 +257,8 @@
                             </i>
                         </button>
                         <input class="form-input form-input--incrementTotal"
-                               id="qty[]"
-                               name="qty[]"
+                               id="customqty[]"
+                               name="customqty[]"
                                type="tel"
                                value="{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}1{{/if}}"
                                data-quantity-min="{{product.min_purchase_quantity}}"
@@ -286,11 +286,15 @@
     </div>
     <div class="clr"></div>
     <div id="optionWrap" class="option_section clearfix" > <!-- style="display:none" -->
-        <section class="productView-details">
+        <section class="productView-details smaller">
             <div class="productView-options">
                 {{#if product.release_date }}
                     <p>{{product.release_date}}</p>
                 {{/if}}
+                <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
+                    data-cart-item-custom-add>
+                    <input type="hidden" name="action" value="add">
+                </form>
                 <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data" data-cart-item-add>
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="product_id" value="{{product.id}}"/>

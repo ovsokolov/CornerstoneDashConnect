@@ -41,23 +41,33 @@ function removeOption(id){
                         </figure>
                     {{/if}}
                     <div class="productOptions-list-item-content">
+                        <input 
+                            class="form-checkbox"
+                            type="checkbox"
+                            name="chk_option[{{id}}]"
+                            id="chk_option_{{id}}"
+                            value="{{value}}"
+                            data-product-id="{{data}}"
+                            data-product-remove-id="{{../id}}">
+                        <label data-product-attribute-value="{{id}}" class="form-label" for="chk_option_{{id}}">{{label}}
+
+                            </br>
+                            <span id="price_{{data}}"></span>
+                        </label>
+                        <!--<a href="#" class="button" onclick="removeOption({{../id}})">X</a>-->
+                        <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
                         <input
                             class="form-radio"
                             type="radio"
+                            style="display:none;"
                             name="attribute[{{../id}}]"
                             value="{{id}}"
                             id="attribute_{{id}}"
                             data-product-attribute-label="{{label}}"
                             data-product-remove-id="{{../id}}"
+                            data-product-id="{{data}}"
                             {{#if selected}}checked{{/if}}
                             {{#if ../required}}required{{/if}}>
-                        <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}
-                            </br>
-                            <span id="price_{{data}}"></span>
-                        </label>
-                        <a href="#" class="button" onclick="removeOption({{../id}})">Remove</a>
-                        <span class="glyphicon glyphicon-trash"></span>
-                        <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
                     </div>
                 </li>
             {{/each}}
@@ -75,23 +85,35 @@ function removeOption(id){
         </div>
         {{/unless}}
         {{#each values}}
+            <input 
+                class="form-checkbox"
+                type="checkbox"
+                name="chk_option[{{id}}]"
+                id="chk_option_{{id}}"
+                value="{{value}}"
+                data-product-remove-id="{{../id}}"
+                data-product-id="{{data}}">
+            <label data-product-attribute-value="{{id}}" class="form-label" for="chk_option_{{id}}">{{label}}
+
+
+                </br>
+                <span id="price_{{data}}"></span>
+            </label>
+            <!--<a href="#" class="button" onclick="removeOption({{../id}})">X</a>-->
+            <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
             <input
                 class="form-radio"
                 type="radio"
+                style="display:none;"
                 name="attribute[{{../id}}]"
                 value="{{id}}"
                 id="attribute_{{id}}"
                 data-product-attribute-label="{{label}}"
                 data-product-remove-id="{{../id}}"
+                data-product-id="{{data}}"
                 {{#if selected}}checked{{/if}}
                 {{#if ../required}}required{{/if}}>
-            <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{label}}
-                </br>
-                <span id="price_{{data}}"></span>
-            </label>
-            <span class="glyphicon glyphicon-trash"></span>
-            <a href="#" class="button" onclick="removeOption({{../id}})">Remove</a>
-            <span class="show_hide_btn closed-details" id="btn_option_details_{{data}}"><a href="#" class="button">Show Details</a></span>
+
         {{/each}}
     {{/if}}
 </div>

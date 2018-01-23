@@ -41,7 +41,13 @@ export default class ProductDetails {
         });
 
         $form.submit(event => {
-            this.addProductToCart(event, $form[0]);
+            // this.addProductToCart(event, $form[0]);
+            //this.addProductToCartCustom(event, $form[0]);
+        });
+
+        $('#form-action-addToCart_custom').click( event => {
+            console.log('custom click');
+            this.addProductToCartCustom(event);
         });
 
         // Update product attributes. If we're in quick view and the product has options,
@@ -69,13 +75,28 @@ export default class ProductDetails {
             var noneId = $(this).closest('.row.pro').attr('row-none-option');
             console.log(noneId);
             console.log(optId);
-            $('#attribute_0_'+ noneId).trigger('click');
+            //$('#attribute_0_'+ noneId).trigger('click');
+            $('#chk_option_' + optId).trigger('click');
             setTimeout(function(){
                 $('.row[row-option="'+optId+'"]').remove();
             },500);
         });
         
+        $('.customCartPrice span').text($('section.productView-details span.price.price--withoutTax').text());
 
+        $(window).scroll(function(){
+          var windowTopPos = $(window).scrollTop();
+          var articleTopPos = $('.productView-description').offset().top;
+          var boxPos = $('.cartPreview').offset().top + $('.cartPreview').outerHeight();
+
+          if(boxPos > articleTopPos - $('.cartPreview').height()) {
+            $('.cartPreview').css('visibility', 'hidden');
+          }
+          if(boxPos < articleTopPos) {
+            $('.cartPreview').css('position', 'fixed');
+            $('.cartPreview').css('visibility', 'visible');
+          }
+        });
 
     }
 
@@ -103,7 +124,7 @@ export default class ProductDetails {
             $upc: $('[data-product-upc]'),
             quantity: {
                 $text: $('.incrementTotal', $scope),
-                $input: $('[name=qty\\[\\]]', $scope),
+                $input: $('[name=customqty\\[\\]]', $scope),
             },
         };
     }
@@ -125,7 +146,19 @@ export default class ProductDetails {
       const $changedOption = $(event.target);
       console.log($changedOption);
       console.log($changedOption.context.id);
+      if($changedOption.context.id.indexOf('chk_option_') !== -1){
+        const optionClass = $changedOption.context.id.split('_')[2];
+        if($changedOption.context.checked == true){
+            $('#attribute_'+ optionClass).trigger('click');
+        }else{
+            const removeId = $changedOption.context.dataset.productRemoveId;
+            console.log(removeId);
+            $('#attribute_0_'+ removeId).trigger('click');                  
+        }
+        return;
+      }
       if($changedOption.context.id.indexOf('attribute_0_') !== -1){
+        
         console.log('removing option');
         const optionClass = $changedOption.context.id.split('_')[2];
         this.$productOptions.forEach((optionSet) => {
@@ -141,14 +174,16 @@ export default class ProductDetails {
             }
         });
         console.log(this.selectedOptions);
+        
       }else{
         const optionClass = $changedOption.context.id.split('_')[1];
         const priceSpanId = '#data-bundle-price-' + optionClass;
         const proPrice = $(priceSpanId).text();
         const optHeading = $changedOption.context.dataset.productAttributeLabel;
         const removeId = $changedOption.context.dataset.productRemoveId;
-        $('<div class="row pro" row-option="'+optionClass+'" row-none-option="'+removeId+'"><div class="box">'+optHeading+'</div><div class="box optPrice">'+proPrice+'<span class="remove">x</span></div></div>').insertAfter('.row.proname');
-        this.selectedOptions[optionClass] = optionClass;
+        const productId = $changedOption.context.dataset.productId;
+        $('<div class="row pro" row-option="'+optionClass+'" row-none-option="'+removeId+'"><div class="box">'+optHeading+'</div><div class="box optPrice">'+proPrice+'<span class="remove"><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-trash-can"></use></svg></i></span></div></div>').insertAfter('.row.proname');
+        this.selectedOptions[optionClass] = productId;
         console.log('adding option');
         console.log(this.selectedOptions);
       }
@@ -307,6 +342,97 @@ export default class ProductDetails {
         });
     }
 
+
+    addProductToCartCustom(event) {
+        const productIdArr = [];
+        const productId = $('[name="product_id"]').val();
+        console.log(productId);
+        console.log(this.selectedOptions);
+        productIdArr.push(productId);
+        productIdArr.push.apply(productIdArr,Object.values(this.selectedOptions));
+        console.log(productIdArr);
+        const rArray = productIdArr.reverse();
+        let showCustomModal = response => {
+            if (this.previewModal) {
+                this.previewModal.open();
+
+                this.updateCartContent(this.previewModal, response.data.cart_item.hash);
+            } else {
+                this.$overlay.show();
+                // if no modal, redirect to the cart page
+                this.redirectTo(response.data.cart_item.cart_url || this.context.urls.cart);
+            }    
+        };
+        console.log(rArray);
+        let i = 0;
+        const addedProductIdArr = [];
+        const qty = document.getElementById('customqty[]').value;
+        console.log('Quantity ', qty);
+        (function asyncWhile() {
+            if (i < rArray.length) {
+                const $formCustom = $('form[data-cart-item-custom-add]');
+                console.log($formCustom);
+                const productForm = new FormData($formCustom);
+                productForm.append('product_id', rArray[i]);
+                productForm.append('qty[]', qty);
+                console.log(productForm);
+                utils.api.cart.itemAdd(productForm, (err, response) => {
+                    // const errorMessage = err || response.data.error;
+                    console.log(response);
+                    i++;
+
+                    const errorMessage = err || response.data.error;
+                    if (errorMessage) {
+                        // Strip the HTML from the error message
+                        const tmp = document.createElement('DIV');
+                        tmp.innerHTML = errorMessage;
+
+                        let j = 0;
+                        (function asyncRemove() {
+                            if (j < addedProductIdArr.length) {
+                                utils.api.cart.itemRemove(addedProductIdArr[j], (err, response) => {
+                                    // const errorMessage = err || response.data.error;
+                                    console.log(response);
+                                    j++;
+                                    asyncRemove();
+                                });
+                            }
+                        })();
+
+                        return swal({
+                            text: tmp.textContent || tmp.innerText,
+                            type: 'error',
+                        });
+                    }
+                    addedProductIdArr.push(response.data.cart_item.id);
+
+                    if(i >= rArray.length) {
+                        // Open preview modal and update content
+                        showCustomModal(response);
+                    }
+
+                    asyncWhile();
+                });
+            } else {
+                /*
+                let j = 0;
+                (function asyncRemove() {
+                    if (j < productId.length - 1) {
+                        utils.api.cart.itemRemove(productId[j], (err, response) => {
+                            // const errorMessage = err || response.data.error;
+                            console.log(response);
+                            j++;
+                            asyncRemove();
+                        });
+                    }
+                })();
+                */
+            }
+
+        })();
+
+    }
+
     /**
      * Get cart contents
      *
@@ -314,6 +440,7 @@ export default class ProductDetails {
      * @param {Function} onComplete
      */
     getCartContent(cartItemHash, onComplete) {
+        /*
         const options = {
             template: 'cart/preview',
             params: {
@@ -326,6 +453,10 @@ export default class ProductDetails {
                     },
                 },
             },
+        };
+        */
+        const options = {
+            template: 'cart/preview',
         };
 
         utils.api.cart.getContent(options, onComplete);
@@ -569,5 +700,6 @@ export default class ProductDetails {
             $radio.attr('data-state', $radio.prop('checked'));
         });
     }
+
 
 }

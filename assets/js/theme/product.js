@@ -80,15 +80,6 @@ export default class Product extends PageManager {
         this.setUpProductView();
         //this.setOptionsPrice();
 
-
-        $('#form-action-addToCart_custom').click(function(e) {
-            console.log('custom click');
-            console.log($('#form-action-addToCart')[0]);
-            $('#form-action-addToCart')[0].click();
-            console.log('triggered');
-        });
-
-
     }
 
     productReviewHandler() {
@@ -168,7 +159,7 @@ export default class Product extends PageManager {
                     const cTitle = data.categories[category.name].name;
                     const cName = data.categories[category.name].category; // take it from json
                     // console.log('CNAME: ' + cName);
-                    $('<div class="optionSet"><div class="optionheading optionbox"><span class="hdIcon"><img src="'+cIcon+'" /></span><span class="labeltxt">'+cTitle+'</span><span class="selectedoption"></span><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-keyboard-arrow-down"></use></svg></i></div><div class="optionRadioSet" id="DIV-'+cName+'"></div></div>').insertBefore('#options-categories');  
+                    $('<div class="optionSet"><div class="optionheading optionbox"><span class="hdIcon"><img src="'+cIcon+'" /></span><span class="labeltxt">'+cTitle+'</span><span class="selectedoption"></span><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-remove"></use></svg></i></div><div class="optionRadioSet" id="DIV-'+cName+'"></div></div>').insertBefore('#options-categories');  
                     const optionsEllements = document.querySelectorAll('[data-step-name]');
                     optionsEllements.forEach((value) => {
                         if(value.dataset.stepName.indexOf(cName) == 0){
@@ -218,11 +209,13 @@ export default class Product extends PageManager {
                 if($(this).next().is(':hidden')) {
                     //$('.optionheading').removeClass('current').next().slideUp('slow');
                     $(this).toggleClass('current').next().slideDown('slow');
+                    $(this).find("use").attr("xlink:href", "#icon-remove");
                 }
                 else{
                     $(this).next().slideToggle('slow');
                     //$(".optionheading + div").not($(this).next()).slideUp('slow');
                     $('.optionheading').removeClass('current');
+                    $(this).find("use").attr("xlink:href", "#icon-add");
                 }
             });
         });
