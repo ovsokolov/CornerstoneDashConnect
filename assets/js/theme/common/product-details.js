@@ -372,7 +372,7 @@ export default class ProductDetails {
             if (i < rArray.length) {
                 const $formCustom = $('form[data-cart-item-custom-add]');
                 console.log($formCustom);
-                const productForm = new FormData($formCustom);
+                const productForm = new FormData($formCustom[0]);
                 productForm.append('product_id', rArray[i]);
                 productForm.append('qty[]', qty);
                 console.log(productForm);
