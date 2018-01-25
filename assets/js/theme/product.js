@@ -159,7 +159,7 @@ export default class Product extends PageManager {
                     const cTitle = data.categories[category.name].name;
                     const cName = data.categories[category.name].category; // take it from json
                     // console.log('CNAME: ' + cName);
-                    $('<div class="optionSet"><div class="optionheading optionbox"><span class="hdIcon"><img src="'+cIcon+'" /></span><span class="labeltxt">'+cTitle+'</span><span class="selectedoption"></span><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-remove"></use></svg></i></div><div class="optionRadioSet" id="DIV-'+cName+'"></div></div>').insertBefore('#options-categories');  
+                    $('<div class="optionSet"><div class="optionheading optionbox"><span class="hdIcon"><img src="'+cIcon+'" /></span><span class="labeltxt">'+cTitle+'</span><span class="selectedoption"></span><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-remove"></use></svg></i></div><div class="optionStep optionRadioSet" id="DIV-'+cName+'"></div></div>').insertBefore('#options-categories');  
                     const optionsEllements = document.querySelectorAll('[data-step-name]');
                     optionsEllements.forEach((value) => {
                         if(value.dataset.stepName.indexOf(cName) == 0){
@@ -195,7 +195,38 @@ export default class Product extends PageManager {
                         // console.log(result);
                         optionSet.price = result.price.without_tax.formatted;
                         $(spanId).html('<s>'.concat('Regular Price: +', result.price.without_tax.formatted, '</s> Bundle Price: +<span id="data-bundle-price-', value.id, '">', result.price.without_tax.formatted, '</span>' ));
-                    });
+                    }
+                );
+                // attach event listener
+                const buttonId = 'btn_option_details_'.concat(value.data);
+                // console.log("buttonId: ", buttonId);
+                const buttonEllement = document.getElementById(buttonId);
+                // console.log(buttonEllement);
+                const productId = value.data;
+                // console.log("Calling with", productId)
+                buttonEllement.addEventListener('click', () => {
+                    console.log("Product: ", productId);
+                    let $modal = $('#previewModal'),
+                    $modalContent = $('.modal-content', $modal),
+                    $modalOverlay = $('.loadingOverlay', $modal),
+                    modalModifierClasses = 'modal--large';
+                    utils.api.product.getById(
+                        productId,
+                        // { params: { debug: "context" } },
+                        { template: 'products/_nt-product-option-view' },
+                        (err, resp) => {
+                            // console.log(resp);
+                            event.preventDefault();
+
+                            // clear the modal
+                            $modalContent.html('');
+                            $modalOverlay.show();
+                            $modal.foundation('reveal', 'open');
+                            $modalOverlay.hide();
+                            $modalContent.html(resp);
+                        }
+                    );
+                });
             });
         });
         console.log(this.$productOptions);
