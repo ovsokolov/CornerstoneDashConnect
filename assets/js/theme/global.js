@@ -17,6 +17,7 @@ import 'lazysizes';
 import loadingProgressBar from './global/loading-progress-bar';
 import FastClick from 'fastclick';
 import sweetAlert from './global/sweet-alert';
+import { searchMMY } from './global/interface-search';
 
 function fastClick(element) {
     return new FastClick(element);
@@ -38,6 +39,7 @@ export default class Global extends PageManager {
         compareProducts(this.context.urls);
         carousel();
         menu();
+        searchMMY.loadDropDowns();
         mobileMenuToggle();
         privacyCookieNotification();
         maintenanceMode(this.context.maintenanceMode);

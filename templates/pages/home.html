@@ -127,21 +127,15 @@ blog:
 <div class="home-cat">
     <h2>Make Of Vehicle</h2>
 	{{#each categories}}
-		<ul>
 		{{#if children}}
-			{{#each children}}
-		
-				{{#if children}}
+			<ul>
+			{{#if name 'category'}}
+				{{#each children}}						
 				<li>
 				 <a  href="{{url}}" alt="{{name}}" title="{{name}}"> <img src="{{getImage image "thumbnail"}}"><div><h6>{{name}}</h6></div> </a>
 				 </li>
-				{{else}}
-				<li>
-				 <a  href="{{url}}" alt="{{name}}" title="{{name}}"> <img src="{{getImage image "thumbnail"}}"><div><h6>{{name}}</h6></div> </a>
-				</li>
-				{{/if}}
-			
-			{{/each}}
+				 {{/each}}
+			{{/if}}			
 			</ul>
 		{{else}}
 		{{/if}}
@@ -149,7 +143,6 @@ blog:
 </div>
 
     
-
 <div class="main full">
     {{#if products.featured}}
         {{> components/products/featured products=products.featured columns=theme_settings.homepage_featured_products_column_count}}
@@ -163,6 +156,7 @@ blog:
         {{> components/products/new products=products.new columns=theme_settings.homepage_new_products_column_count}}
     {{/if}}
 </div>
+
 {{/partial}}
 {{> layout/base}}
 

@@ -48,11 +48,48 @@
             </a>
 
             <div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true"></div>
- </li>
-{{#if banners.top}}
-<div class="banners" data-banner-location="top">
+</li>
+<div class="banners" data-banner-location="top" id="search-mmy" style="display:none;">
     <div class="banner">
-        {{{limit banners.top 1}}}
+        <div class="search-box-area">
+          <h4>Vehicle Lookup</h4>
+          <form action="http://ovsokolov-gmail-com2.mybigcommerce.com/search.php?search_query=product&amp;section=product">
+            <div class="form-group">
+              <div class="frm-fled">
+                <select id="vehicle-make">
+                  <option>Choose Make</option>
+                </select>
+              </div>
+              <!-- End Of frm-fled Div -->
+              <div class="frm-fled">
+                <select id="vehicle-model">
+                  <option>Choose Model</option>
+                </select>
+              </div>
+              <!-- End Of frm-fled Div -->
+              <div class="frm-fled">
+                <select id="vehicle-year">
+                  <option>Choose Year</option>
+                </select>
+              </div>
+              <!-- End Of frm-fled Div -->
+              <div class="frm-fled">
+                <select id="vehicle-option">
+                  <option>Choose Option</option>
+                </select>
+              </div>
+              <!-- End Of frm-fled Div -->
+              <div class="act-btn">
+                <span>
+                    <button id="mmy-reset" class="button">Reset</button>
+                </span> 
+                <span> 
+                    <button id="mmy-submit" class="button button--primary">Search</button>
+                </span></div>
+              <!-- End Of act-btn Div --></div>
+          </form>
+        </div>
     </div>
 </div>
-{{/if}}
+<input type="hidden" id="customPageType" value="{{page_type}}"/>
+
