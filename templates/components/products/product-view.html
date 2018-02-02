@@ -222,6 +222,18 @@
             
         </div>
         <div class="innerRight">
+        	<div class="pageCartHeader" style="display:none">
+            	<span class="PriceTotal">
+                	Product Total: 
+                    {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                        {{> components/products/price price=product.price schema_org=schema}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
+                </span>
+                <span class="topAddtoCart btn">Add To Cart</span>
+                <span class="detail btn" data-text-swap="Hide" data-text-original="Details">Details</span>
+            </div>
             <div class="cartPreview">
                 <h2>Your Configuration</h2>
                 <div class="row proname">
@@ -386,18 +398,33 @@ function scrolltocustom(sourceDiv,margintp) {
 </script>
 <script>
              
-      $(document).ready(function(){
-        
-        var xyz = $('.newoptions');
-        if(xyz.children().length > 0)
-        {
-            $(".button-two").show();   
-        }
-        else
-        {
-            $(".button-two").hide();
-        }
-    });
+$(document).ready(function(){
+	var xyz = $('.newoptions');
+	if(xyz.children().length > 0)
+	{
+		$(".button-two").show();   
+	}
+	else
+	{
+		$(".button-two").hide();
+	}
+
+	$('.topAddtoCart.btn').click(function(){
+		console.log('top AddToCart click');
+		$('#form-action-addToCart_custom').trigger('click');
+	});
+	$('.detail.btn').click(function(e) {
+		var el = $(this);
+			el.text() == el.data("text-swap") 
+			? el.text(el.data("text-original")) 
+			: el.text(el.data("text-swap"));
+		$('.cartPreview').toggleClass('active');
+		$(this).parent().toggleClass('menuActive');
+		$('html,body').animate({
+			scrollTop: $(".cartPreview").offset().top - 80
+		},'slow');
+	});
+});
       
 </script>
 
@@ -425,5 +452,69 @@ display : none;
 
 div#newpost {
     border: 2px solid #ccc;
+}
+
+@media all and (max-width:800px){
+body {
+	padding-top: 90px;
+}
+.pageCartHeader {
+	display:block !important;
+	position: fixed;
+	top: 32px;
+	background-color: #F2F2F2;
+	width: 100%;
+	height: 44px;
+	left: 0;
+	text-align: center;
+	padding: 8px 20px;
+	z-index:999;
+}
+.pageCartHeader .btn {
+	display: block;
+	background-color: #595959;
+	padding: 4px 10px;
+	border-radius: 3px;
+	margin-left: 5px;
+	vertical-align: middle;
+	cursor: pointer;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #FFF;
+	float: right;
+}
+.pageCartHeader .topAddtoCart.btn {
+	background-color:#4FAAF3;
+}
+.pageCartHeader.menuActive .topAddtoCart.btn {
+	display:none;
+}
+
+.PriceTotal {
+	line-height: 26px;
+	font-size: 13px;
+	color: #000;
+	margin-right: 10px;
+	display: block;
+	float: left;
+}
+.pageCartHeader .PriceTotal > div {
+	display: inline-block;
+}
+.cartPreview.active {
+	position: relative !important;
+	visibility: visible !important;
+	display: block;
+	z-index: 1;
+	transition: none;
+	top: auto;
+	left: 0;
+	-webkit-transform: inherit;
+}
+}
+@media all and (max-width:330px){
+	.pageCartHeader {
+		padding:8px 10px;
+	}
 }
 </style>

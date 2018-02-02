@@ -1,0 +1,1 @@
+{"components/products/_nt-product-price-json":"---\nproduct:\n   price:\n   custom_fields:\n---\n{&quot;price&quot;:{{json product.price}}, &quot;custom_fields&quot;: {{json product.custom_fields}} }"}

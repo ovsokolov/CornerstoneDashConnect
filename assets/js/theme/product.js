@@ -204,7 +204,7 @@ export default class Product extends PageManager {
                 // console.log(buttonEllement);
                 const productId = value.data;
                 // console.log("Calling with", productId)
-                buttonEllement.addEventListener('click', (event) => {
+                buttonEllement.addEventListener('click', () => {
                     console.log("Product: ", productId);
                     let $modal = $('#previewModal'),
                     $modalContent = $('.modal-content', $modal),
