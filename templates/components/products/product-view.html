@@ -458,6 +458,7 @@ div#newpost {
 body {
 	padding-top: 90px;
 }
+
 .pageCartHeader {
 	display:block !important;
 	position: fixed;
@@ -501,15 +502,18 @@ body {
 .pageCartHeader .PriceTotal > div {
 	display: inline-block;
 }
-.cartPreview.active {
+.cartPreview{
 	position: relative !important;
 	visibility: visible !important;
-	display: block;
+	display: none;
 	z-index: 1;
 	transition: none;
 	top: auto;
 	left: 0;
 	-webkit-transform: inherit;
+}
+.cartPreview.active {
+	display: block;
 }
 }
 @media all and (max-width:330px){
