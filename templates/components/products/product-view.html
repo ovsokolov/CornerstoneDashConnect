@@ -222,6 +222,18 @@
             
         </div>
         <div class="innerRight">
+            <div class="pageCartHeader" style="display:none">
+                <span class="PriceTotal">
+                    Product Total: 
+                    {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                        {{> components/products/price price=product.price schema_org=schema}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
+                </span>
+                <span class="topAddtoCart btn">Add To Cart</span>
+                <span class="detail btn" data-text-swap="Hide" data-text-original="Details">Details</span>
+            </div>
             <div class="cartPreview">
                 <h2>Your Configuration</h2>
                 <div class="row proname">
@@ -373,57 +385,10 @@
 </div>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <script>
-function showhide() {
-  var div = document.getElementById("newpost");
-  div.classList.toggle('section-one'); 
-} 
-
 function scrolltocustom(sourceDiv,margintp) {
     var pos = jQuery("#" + sourceDiv ).offset().top - margintp;
     $('body, html').animate({scrollTop: pos});
-}  
-    
-</script>
-<script>
-             
-      $(document).ready(function(){
-        
-        var xyz = $('.newoptions');
-        if(xyz.children().length > 0)
-        {
-            $(".button-two").show();   
-        }
-        else
-        {
-            $(".button-two").hide();
-        }
-    });
-      
+}   
+
 </script>
 
-<style>
-   .section-one{
-display : none;
-} 
-.button-two {
-    border-style: solid;
-    border-width: 1px;
-    cursor: pointer;
-    font-weight: 400;
-    margin: 0 0 1rem;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-color: #dfdfdf;
-    color: #454545;
-    padding: .85714rem 2.28571rem;
-    border-radius: 4px;
-    outline: 0;
-    vertical-align: middle;
-    float: right;
-}
-
-div#newpost {
-    border: 2px solid #ccc;
-}
-</style>

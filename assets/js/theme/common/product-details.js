@@ -98,6 +98,23 @@ export default class ProductDetails {
           }
         });
 
+        $('.topAddtoCart.btn').click(function(){
+            console.log('top AddToCart click');
+            $('#form-action-addToCart_custom').trigger('click');
+        });
+
+        $('.detail.btn').click(function(e) {
+            var el = $(this);
+                el.text() == el.data("text-swap") 
+                ? el.text(el.data("text-original")) 
+                : el.text(el.data("text-swap"));
+            $('.cartPreview').toggleClass('active');
+            $(this).parent().toggleClass('menuActive');
+            $('html,body').animate({
+                scrollTop: $(".cartPreview").offset().top - 80
+            },'slow');
+        });
+
     }
 
     /**
