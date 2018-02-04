@@ -168,8 +168,9 @@ export default class ProductDetails {
         if($changedOption.context.checked == true){
             $('#attribute_'+ optionClass).trigger('click');
         }else{
-            const removeId = $changedOption.context.dataset.productRemoveId;
-            console.log(removeId);
+            //const removeId = $changedOption.context.dataset.productRemoveId;
+            const removeId = $changedOption.context.getAttribute('data-product-remove-id');
+            console.log('XXXXXX Remove ID: ', removeId);
             $('#attribute_0_'+ removeId).trigger('click');                  
         }
         return;
@@ -196,12 +197,15 @@ export default class ProductDetails {
         const optionClass = $changedOption.context.id.split('_')[1];
         const priceSpanId = '#data-bundle-price-' + optionClass;
         const proPrice = $(priceSpanId).text();
-        const optHeading = $changedOption.context.dataset.productAttributeLabel;
-        const removeId = $changedOption.context.dataset.productRemoveId;
-        const productId = $changedOption.context.dataset.productId;
+        //const optHeading = $changedOption.context.dataset.productAttributeLabel;
+        //const removeId = $changedOption.context.dataset.productRemoveId;
+        //const productId = $changedOption.context.dataset.productId;
+        const optHeading = $changedOption.context.getAttribute('data-product-attribute-label');
+        const removeId = $changedOption.context.getAttribute('data-product-remove-id');
+        const productId = $changedOption.context.getAttribute('data-product-id');
         $('<div class="row pro" row-option="'+optionClass+'" row-none-option="'+removeId+'"><div class="box">'+optHeading+'</div><div class="box optPrice">'+proPrice+'<span class="remove"><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-trash-can"></use></svg></i></span></div></div>').insertAfter('.row.proname');
         this.selectedOptions[optionClass] = productId;
-        console.log('adding option');
+        console.log('adding option heading :' ,optHeading, ' removeId: ', removeId, ' productId: ', productId  );
         console.log(this.selectedOptions);
       }
       this.productOptionsChanged(event);  

@@ -160,15 +160,16 @@ export default class Product extends PageManager {
                     const cIcon = data.categories[category.name].icon;
                     const cTitle = data.categories[category.name].name;
                     const cName = data.categories[category.name].category; // take it from json
-                    // console.log('CNAME: ' + cName);
+                    console.log('CNAME: ' + cName);
                     $('<div class="optionSet"><div class="optionheading optionbox"><span class="hdIcon"><img src="'+cIcon+'" /></span><span class="labeltxt">'+cTitle+'</span><span class="selectedoption"></span><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-remove"></use></svg></i></div><div class="optionStep optionRadioSet" id="DIV-'+cName+'"></div></div>').insertBefore('#options-categories');  
                     const optionsEllements = document.querySelectorAll('[data-step-name]');
-                    // console.log('##################');
-                    // console.log('optionsEllements:', optionsEllements);
+                    console.log('##################');
+                    console.log('optionsEllements:', optionsEllements);
                     [].forEach.call(optionsEllements, value => {
                     //optionsEllements.forEach((value) => {
-                        // console.log('L1 inside options elelments');
-                        if(value.dataset.stepName.indexOf(cName) == 0){
+                        const stepName = value.getAttribute('data-step-name');
+                        console.log('stepName: ', stepName);
+                        if(stepName.indexOf(cName) == 0){
                             console.log('appends to step name');
                             const divId = '#DIV-' + cName;
                             $(value).appendTo(divId);
