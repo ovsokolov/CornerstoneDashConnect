@@ -21,7 +21,7 @@ export default class Product extends PageManager {
 
         this.$optionViewSet = false;
 
-        //console.log(this.$productOptions);
+        console.log("product constructor");
 
         this.setUpProductView = this.setUpProductView.bind(this);
         this.setOptionsView = this.setOptionsView.bind(this);
@@ -73,6 +73,7 @@ export default class Product extends PageManager {
     }
 
     after(next) {
+        console.log("in after");
         this.productReviewHandler();
 
         next();
@@ -89,8 +90,9 @@ export default class Product extends PageManager {
     }
 
     setUpProductView() {
+        console.log("in setUpProductView: 1");
         const productCustomFields = this.context.productCustomFields;
-        // console.log(productCustomFields);
+        console.log("in setUpProductView: ", productCustomFields);
         let setName = '';
         let features = '';
         for (const customField in productCustomFields) {
@@ -154,16 +156,20 @@ export default class Product extends PageManager {
                 // console.log('Set: ', data.optionsets[setName]);
                 data.optionsets[setName].categories.forEach((category) => {
                     // console.log('Category Name: ' + category.name);
-                    console.log(data.categories[category.name]);
+                    // console.log(data.categories[category.name]);
                     const cIcon = data.categories[category.name].icon;
                     const cTitle = data.categories[category.name].name;
                     const cName = data.categories[category.name].category; // take it from json
                     // console.log('CNAME: ' + cName);
                     $('<div class="optionSet"><div class="optionheading optionbox"><span class="hdIcon"><img src="'+cIcon+'" /></span><span class="labeltxt">'+cTitle+'</span><span class="selectedoption"></span><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-remove"></use></svg></i></div><div class="optionStep optionRadioSet" id="DIV-'+cName+'"></div></div>').insertBefore('#options-categories');  
                     const optionsEllements = document.querySelectorAll('[data-step-name]');
-                    optionsEllements.forEach((value) => {
+                    // console.log('##################');
+                    // console.log('optionsEllements:', optionsEllements);
+                    [].forEach.call(optionsEllements, value => {
+                    //optionsEllements.forEach((value) => {
+                        // console.log('L1 inside options elelments');
                         if(value.dataset.stepName.indexOf(cName) == 0){
-                            // console.log('appends');
+                            console.log('appends to step name');
                             const divId = '#DIV-' + cName;
                             $(value).appendTo(divId);
                         }
@@ -177,15 +183,16 @@ export default class Product extends PageManager {
             }       
         });
 
-
+        // console.log('before this.$productOptions.forEach');
 
         let optionCounter = 0;
         this.$productOptions.forEach((optionSet) => {
+            // console.log('inside this.$productOptions.forEach');
             const values = optionSet.values;
-            // console.log(optionSet);
+            // console.log('L2: ',optionSet);
             values.forEach((value) => {
                 const spanId = '#price_'.concat(value.data);
-                // console.log(value.data);
+                // console.log('L2: ',value.data);
                 utils.api.product.getById(
                     value.data,
                     // { params: { debug: "context" } },

@@ -50,6 +50,7 @@ class InterfaceSearch {
         resetBtn.addEventListener('click', this.resetDropDowns);
         const sumbitBtn = document.getElementById('mmy-submit');
         sumbitBtn.addEventListener('click', this.searchMMY);
+        console.log('Interface Search end');
         
     }
 
@@ -59,7 +60,8 @@ class InterfaceSearch {
         const selectedOption = sessionStorage.getItem('option-selected');
         optionArray.forEach((arrayItem) => {
             if (arrayItem.option_1.localeCompare(selectedOption) === 0) {
-                window.location = arrayItem.category_url;
+                //window.location = arrayItem.category_url;
+                //window.location = http://ovsokolov-gmail-com2.mybigcommerce.com/search.php?search_query=product&amp;section=product
             }
         });
     }
@@ -125,10 +127,10 @@ class InterfaceSearch {
     }
 
     loadDropDowns() {
-        this.loadMake();
-        this.loadModel();
-        this.loadYear();
-        this.loadOption();
+        //this.loadMake();
+        //this.loadModel();
+        //this.loadYear();
+        //this.loadOption();
     }
 
     loadModel(makeID) {
@@ -151,7 +153,7 @@ class InterfaceSearch {
             };
 
             xhr.onerror = () => {
-                alert('Woops, there was an error making the request.');
+                //alert('Woops, there was an error making the request.');
             };
 
             xhr.send();
@@ -187,7 +189,7 @@ class InterfaceSearch {
             };
 
             xhr.onerror = () => {
-                alert('Woops, there was an error making the request.');
+                //alert('Woops, there was an error making the request.');
             };
 
             xhr.send();
@@ -232,7 +234,7 @@ class InterfaceSearch {
             };
 
             xhr.onerror = () => {
-                alert('Woops, there was an error making the request.');
+                //alert('Woops, there was an error making the request.');
             };
 
             xhr.send();
@@ -270,7 +272,7 @@ class InterfaceSearch {
             };
 
             xhr.onerror = () => {
-                alert('Woops, there was an error making the request.');
+                //alert('Woops, there was an error making the request.');
             };
 
             xhr.send();

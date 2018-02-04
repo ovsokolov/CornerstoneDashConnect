@@ -21,16 +21,12 @@ category:
 
 <h1 class="page-heading">{{category.name}}</h1>
 {{{category.description}}}
-           <ul class="custom_inline_pro">
- {{#each category.subcategories}}
-    <li  class="navList-item">
-           
+<ul class="custom_inline_pro">
+    {{#each category.subcategories}}
+        <li  class="navList-item">
                 <a  href="{{url}}" alt="{{name}}" title="{{name}}"> <img src="{{getImage image "thumbnail"}}"><div><h6>{{name}}</h6></div> </a>
-            
-                 </li>
-   
-{{/each}}
-           
+        </li>  
+    {{/each}}           
 </ul>
 
 
