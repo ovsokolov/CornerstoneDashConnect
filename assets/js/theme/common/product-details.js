@@ -70,7 +70,7 @@ export default class ProductDetails {
         this.previewModal = modalFactory('#previewModal')[0];
 
         
-        $(document).on('click', '.remove', function() {
+        $(document).on('click', '.removeDiv', function() {
             var optId = $(this).closest('.row.pro').attr('row-option');
             var noneId = $(this).closest('.row.pro').attr('row-none-option');
             console.log(noneId);
@@ -203,7 +203,7 @@ export default class ProductDetails {
         const optHeading = $changedOption.context.getAttribute('data-product-attribute-label');
         const removeId = $changedOption.context.getAttribute('data-product-remove-id');
         const productId = $changedOption.context.getAttribute('data-product-id');
-        $('<div class="row pro" row-option="'+optionClass+'" row-none-option="'+removeId+'"><div class="box">'+optHeading+'</div><div class="box optPrice">'+proPrice+'<span class="remove"><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-trash-can"></use></svg></i></span></div></div>').insertAfter('.row.proname');
+        $('<div class="row pro" row-option="'+optionClass+'" row-none-option="'+removeId+'"><div class="box">'+optHeading+'</div><div class="box optPrice removeDiv">'+proPrice+'<span class="remove"><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-trash-can"></use></svg></i></span></div></div>').insertAfter('.row.proname');
         this.selectedOptions[optionClass] = productId;
         console.log('adding option heading :' ,optHeading, ' removeId: ', removeId, ' productId: ', productId  );
         console.log(this.selectedOptions);
