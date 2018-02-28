@@ -24,6 +24,7 @@ function removeOption(id){
             <div style="display: none;">
                 <li class="productOptions-list-item">
                     <input class="form-radio"
+                           style="cursor: pointer"
                            type="radio"
                            name="attribute[{{id}}]"
                            value="0"
@@ -42,7 +43,7 @@ function removeOption(id){
                     {{/if}}
                     <div class="productOptions-list-item-content">
                         <input 
-                            class="form-checkbox"
+                            class="form-checkbox custom-chk"
                             type="checkbox"
                             name="chk_option[{{id}}]"
                             id="chk_option_{{id}}"
@@ -76,6 +77,7 @@ function removeOption(id){
         {{#unless required}}
         <div style="display: none;">
             <input class="form-radio"
+                   style="cursor: pointer"
                    type="radio"
                    name="attribute[{{id}}]"
                    value="0"
@@ -86,7 +88,7 @@ function removeOption(id){
         {{/unless}}
         {{#each values}}
             <input 
-                class="form-checkbox"
+                class="form-checkbox custom-chk"
                 type="checkbox"
                 name="chk_option[{{id}}]"
                 id="chk_option_{{id}}"

@@ -37,6 +37,7 @@ export default class ProductDetails {
         // add event listener for category option list change
         const $productCategoryElement = $('[data-product-category-change]', $form);
         $productCategoryElement.change(event => {
+            console.log('event cought');
             this.customProductOptionsChanged(event);
         });
 
@@ -73,10 +74,15 @@ export default class ProductDetails {
         $(document).on('click', '.removeDiv', function() {
             var optId = $(this).closest('.row.pro').attr('row-option');
             var noneId = $(this).closest('.row.pro').attr('row-none-option');
-            console.log(noneId);
-            console.log(optId);
+            console.log('remove non id: ', noneId);
+            console.log('check option id: ', optId);
             //$('#attribute_0_'+ noneId).trigger('click');
-            $('#chk_option_' + optId).trigger('click');
+            //console.log($('#chk_option_' + optId));
+            console.log($('#chk_option_' + optId).prop('checked'));
+            $('#chk_option_' + optId).prop('checked', false);
+            $('#chk_option_' + optId).change();
+            //$('#chk_option_' + optId).trigger('click');
+            //$('#chk_option_' + optId).click();
             setTimeout(function(){
                 $('.row[row-option="'+optId+'"]').remove();
             },500);
@@ -166,12 +172,18 @@ export default class ProductDetails {
       if($changedOption.context.id.indexOf('chk_option_') !== -1){
         const optionClass = $changedOption.context.id.split('_')[2];
         if($changedOption.context.checked == true){
-            $('#attribute_'+ optionClass).trigger('click');
+            $('#attribute_'+ optionClass).prop('checked', true);
+            $('#attribute_'+ optionClass).change();
+            //$('#attribute_'+ optionClass).trigger('click');
         }else{
             //const removeId = $changedOption.context.dataset.productRemoveId;
             const removeId = $changedOption.context.getAttribute('data-product-remove-id');
             console.log('XXXXXX Remove ID: ', removeId);
-            $('#attribute_0_'+ removeId).trigger('click');                  
+            console.log('trigger remove :', removeId)
+            $('#attribute_0_'+ removeId).prop('checked', true);
+            $('#attribute_0_'+ removeId).change() ;
+            //$('#attribute_0_'+ removeId).trigger('click');   
+                          
         }
         return;
       }

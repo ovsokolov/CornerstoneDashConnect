@@ -1619,5 +1619,16 @@ display: none;
 
 #previewModal{max-height: 100%; overflow-y: auto}
 
+.removeDiv {
+    cursor: pointer;
+}
+
+.form-checkbox {
+    cursor: pointer;
+}
+
+html.ua-safari.ua-ios {
+  cursor: pointer;
+}
 
 
