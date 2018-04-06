@@ -17,13 +17,7 @@
     <div class="tab-content is-active" id="tab-description">
         {{{product.description}}}
         {{{snippet 'product_description'}}}
-        <div class="custom_field_wrap">
-            {{#each product.custom_fields}}
-                <div class="product_custom_field_box">
-                    <div class="product_custom_fields productView-info-name">{{name}}</div>
-                    <div class="product_custom_fields productView-info-value {{name}}_list">{{{value}}}</div>
-                </div>
-            {{/each}}
+        <div id="custom_field_wrap" class="custom_field_wrap">
         </div>
         <div class="DescriptionContent_Outer">
             <div id="icon-list" class="iconSet"></div>

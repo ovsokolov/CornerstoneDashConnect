@@ -20,11 +20,13 @@ export default class Product extends PageManager {
         this.$productOptions = this.context.productOptions;
 
         this.$optionViewSet = false;
+        this.$templateNumber = "";
 
         console.log("product constructor");
 
         this.setUpProductView = this.setUpProductView.bind(this);
         this.setOptionsView = this.setOptionsView.bind(this);
+        this.setAccesoriesView = this.setAccesoriesView.bind(this);
 
     }
 
@@ -56,8 +58,19 @@ export default class Product extends PageManager {
             validator = review.registerValidation(this.context);
         });
 
+        const productCustomFields = this.context.productCustomFields;
+        for (const customField in productCustomFields) {
+            if(productCustomFields[customField].name == 'ACCESSORIES_LIST'){
+                $('#accListBtn').show();            
+            }
+            if(productCustomFields[customField].name == 'TEMPLATE_NUMBER'){
+                this.$templateNumber = "LIST_" +  productCustomFields[customField].value;           
+            }
+        }
+
         $('body').on('click', '[data-customize-button="customize-button"]', () => {
-            this.setOptionsView();
+            //this.setOptionsView();
+            this.setAccesoriesView();
         });
 
         $reviewForm.on('submit', () => {
@@ -95,12 +108,15 @@ export default class Product extends PageManager {
         console.log("in setUpProductView: ", productCustomFields);
         let setName = '';
         let features = '';
+        let tempalte = this.$templateNumber;
+        /*
         for (const customField in productCustomFields) {
             if(productCustomFields[customField].name == 'FeaturesList'){
                 features = productCustomFields[customField].value;             
             }
         }
-        console.log('Feature: ', features);
+        */
+        console.log('Feature: ', this.$templateNumber);
         $.ajax({
             url : 'http://ovsokolov-gmail-com2.mybigcommerce.com/content/optionsetconfig.json',
             type : 'GET',
@@ -108,8 +124,31 @@ export default class Product extends PageManager {
             dataType: "json",
             success: function(data){
                 // console.log('Set: ', data.optionsets[setName]);
-                const fList = features.split('_');
-                        
+                //const fList = features.split('_');
+                console.log("Template Number: " + tempalte);
+                const fList = data.featureslist[tempalte];
+                console.log(data.featureslist);
+                console.log(fList);
+                Object.keys(fList).forEach(function(key,index) {
+                    // key: the name of the object key
+                    console.log("Key: " + key + " Value: " + fList[key]);
+                    // index: the ordinal position of the key within the object
+                    let keyValue = fList[key];
+                    if(keyValue != 1){
+                        console.log(data.features);
+                        const featureImg = data.features[key].image;
+                        const featureHd = data.features[key].heading;
+                        const featureCnt = data.features[key].contents;
+                        const note = data.features["NOTE"].contents;
+                        $('<div class="DescpTab_Wrap"><div class="TabCircle"><img class="__mce_add_custom__" title="" src="'+featureImg+'" alt="" width="256" height="256"></div><div class="TabText">'+featureHd+'</div></div>').appendTo('#icon-list'); 
+                        if(keyValue == 3){
+                            $('<div class="DescpContent_Wrap"><div class="DescpContent_img"><img src="'+featureImg+'" /></div><div class="DescpContent_txt"><h6>'+featureHd+'</h6><p>'+featureCnt+'</p><p><font color="red">'+note+'</font></p></div></div>').appendTo('#features-list');  
+                        }else{
+                            $('<div class="DescpContent_Wrap"><div class="DescpContent_img"><img src="'+featureImg+'" /></div><div class="DescpContent_txt"><h6>'+featureHd+'</h6><p>'+featureCnt+'</p></div></div>').appendTo('#features-list');                              
+                        }
+                    }
+                });
+                /*     
                 $.each(fList, function (index, value) {
                     console.log('#### FEATURE ####: ', value);
                     const featureImg = data.features[value].image;
@@ -121,14 +160,142 @@ export default class Product extends PageManager {
                     $('<div class="DescpTab_Wrap"><div class="TabCircle"><img class="__mce_add_custom__" title="" src="'+featureImg+'" alt="" width="256" height="256"></div><div class="TabText">'+featureHd+'</div></div>').appendTo('#icon-list'); 
                     $('<div class="DescpContent_Wrap"><div class="DescpContent_img"><img src="'+featureImg+'" /></div><div class="DescpContent_txt"><h6>'+featureHd+'</h6><p>'+featureCnt+'</p></div></div>').appendTo('#features-list'); 
                 });
+
                 $('#options-categories').show();
+                */
                 //console.log('Categories: ', data.categories);
                 //console.log('Set 1:', data.optionsets['S1']);
+                console.log('#####Custom Fields Names#######');
+                console.log(data.customfields);
+                for (const customField in productCustomFields) {
+                    if(data.customfields[productCustomFields[customField].name] !== undefined){
+                        const customFieldName = data.customfields[productCustomFields[customField].name];
+                        console.log(data.customfields[productCustomFields[customField].name]);
+                        //$('<div class="product_custom_field_box"><div class="product_custom_fields productView-info-name">'+data.customfields[productCustomFields[customField].name+'</div><div class="product_custom_fields productView-info-value">'+productCustomFields[customField].value+'</div></div>').appendTo('#custom_field_wrap');
+                        $('<div class="product_custom_field_box"><div class="product_custom_fields productView-info-name">'+customFieldName+'</div><div class="product_custom_fields productView-info-value">'+productCustomFields[customField].value+'</div></div>').appendTo('#custom_field_wrap');
+                    }
+                }
             },
             error: function(xhr, ajaxOptions, thrownError){
                 console.log('ERROR = ' + xhr.status + ' - ' + thrownError);
             }       
         });
+    }
+
+    setAccesoriesView() {
+        if( this.$optionViewSet ==  true ){
+            console.log('Option already set');
+            return;
+        }
+        const productCustomFields = this.context.productCustomFields;
+        // console.log(productCustomFields);
+        let setName = '';
+        let features = '';
+        for (const customField in productCustomFields) {
+            // console.log(productCustomFields[customField]);
+            if(productCustomFields[customField].name == 'ACCESSORIES_LIST'){
+                setName = "LIST_" + productCustomFields[customField].value;  
+                // console.log(setName);           
+            }
+        }
+        console.log('Feature: ', features);
+        $.ajax({
+            url : 'http://ovsokolov-gmail-com2.mybigcommerce.com/content/optionsetconfig.json',
+            type : 'GET',
+            async: false,
+            dataType: "json",
+            success: function(data){
+                console.log('Set: ', data);
+                //console.log(data.accessorieslist[setName]);  
+                data.accessorieslist[setName].categories.forEach((category) => {
+                    console.log('Category: ' + category.NAME);
+                    // console.log(data.categories[category.name]);
+                    const cIcon = data.accessories_categories[category.NAME].icon;
+                    const cTitle = data.accessories_categories[category.NAME].description;
+                    const cName = data.accessories_categories[category.NAME].name; // take it from json
+                    console.log('CNAME: ' + cName);
+                    if(category.OPTIONS.length > 0){
+                        $('<div class="optionSet"><div class="optionheading optionbox"><span class="hdIcon"><img src="'+cIcon+'" /></span><span class="labeltxt">'+cTitle+'</span><span class="selectedoption"></span><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-remove"></use></svg></i></div><div class="optionStep optionRadioSet" id="DIV-'+cName+'"></div></div>').insertBefore('#options-categories');  
+                        [].forEach.call(category.OPTIONS, value => {
+                            console.log("OPTION VALUE");
+                            console.log(value);
+                            let optionType = value;
+                            const accDivId = '#DIV-' + cName;
+                            $('<div id="DIV-'+optionType+'"></div>').appendTo(accDivId);
+                            const optionId = data.accessories[value];
+                            console.log(optionId);
+                            utils.api.product.getById(
+                                optionId,
+                                { template: 'products/_nt-product-list' },
+                                //{ template: 'products/_nt-product-option-view-json' },
+                                (err, resp) => {
+                                    //const result = JSON.parse(resp.replace(/&quot;/g, '"'));
+                                    //console.log(result);
+                                    
+                                    const divId = '#DIV-' + optionType;
+                                    $(resp).appendTo(divId);   
+                                    // attach event listener
+                                    const buttonId = 'btn_option_details_'.concat(optionId);
+                                    // console.log("buttonId: ", buttonId);
+                                    const buttonEllement = document.getElementById(buttonId);
+                                    // console.log(buttonEllement);
+                                    const productId = optionId;
+                                    // console.log("Calling with", productId)
+                                    buttonEllement.addEventListener('click', (event) => {
+                                        console.log("Product: ", productId);
+                                        let $modal = $('#previewModal'),
+                                        $modalContent = $('.modal-content', $modal),
+                                        $modalOverlay = $('.loadingOverlay', $modal),
+                                        modalModifierClasses = 'modal--large';
+                                        utils.api.product.getById(
+                                            productId,
+                                            //{ params: { debug: "bar" } },
+                                            { template: 'products/_nt-product-option-view' },
+                                            //{ template: 'products/_nt-product-option-view-json' },
+                                            (err, resp) => {
+                                                //const result = JSON.parse(resp.replace(/&quot;/g, '"'));
+                                                //console.log(result);
+                                                event.preventDefault();
+                                                // clear the modal
+                                                $modalContent.html('');
+                                                $modalOverlay.show();
+                                                $modal.foundation('reveal', 'open');
+                                                $modalOverlay.hide();
+                                                $modalContent.html(resp);
+                                            }
+                                        );
+                                    }); 
+                                }                
+                            ); //util
+                        }); //end [].forEach 
+                    }
+                }); //data.accessorieslist[setName].categories.forEach((category) 
+
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                console.log('ERROR = ' + xhr.status + ' - ' + thrownError);
+            }       
+        }); // ajax
+        
+        $('[data-product-category-change]').show();
+        this.$optionViewSet = true;
+
+        $(function() {
+            //$('.optionheading + div').hide();
+            $('.optionheading').click(function(){
+                if($(this).next().is(':hidden')) {
+                    //$('.optionheading').removeClass('current').next().slideUp('slow');
+                    $(this).toggleClass('current').next().slideDown('slow');
+                    $(this).find("use").attr("xlink:href", "#icon-remove");
+                }
+                else{
+                    $(this).next().slideToggle('slow');
+                    //$(".optionheading + div").not($(this).next()).slideUp('slow');
+                    $('.optionheading').removeClass('current');
+                    $(this).find("use").attr("xlink:href", "#icon-add");
+                }
+            });
+        });       
     }
 
     setOptionsView() {
@@ -202,7 +369,7 @@ export default class Product extends PageManager {
                         const result = JSON.parse(resp.replace(/&quot;/g, '"'));
                         // console.log(result);
                         optionSet.price = result.price.without_tax.formatted;
-                        $(spanId).html('<s>'.concat('Regular Price: +', result.price.without_tax.formatted, '</s> Bundle Price: +<span id="data-bundle-price-', value.id, '">', result.price.without_tax.formatted, '</span>' ));
+                        $(spanId).html('<s>'.concat('Regular Price: +', result.price.without_tax.formatted, '</s> <span class="bundle_price">Bundle Price: +<span id="data-bundle-price-', value.id, '">', result.price.without_tax.formatted, '</span></span>' ));
                     }
                 );
                 // attach event listener
@@ -220,13 +387,16 @@ export default class Product extends PageManager {
                     modalModifierClasses = 'modal--large';
                     utils.api.product.getById(
                         productId,
-                        // { params: { debug: "context" } },
+                        //{ params: { debug: "bar" } },
                         { template: 'products/_nt-product-option-view' },
+                        //{ template: 'products/_nt-product-option-view-json' },
                         (err, resp) => {
-                            // console.log(resp);
+                            //const result = JSON.parse(resp.replace(/&quot;/g, '"'));
+                            //console.log(result);
                             event.preventDefault();
 
                             // clear the modal
+
                             $modalContent.html('');
                             $modalOverlay.show();
                             $modal.foundation('reveal', 'open');

@@ -5,6 +5,7 @@ category:
         limit: {{theme_settings.categorypage_products_per_page}}
 ---
 {{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{inject "categoryBreadCrumb" breadcrumbs}}
 {{#partial "head"}}
     {{#if pagination.category.previous}}
         <link rel="prev" href="{{pagination.category.previous}}">
@@ -19,7 +20,7 @@ category:
     <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage category.image 'zoom_size'}}">
 {{/if}}
 
-<h1 class="page-heading">{{category.name}}</h1>
+<h1 class="page-heading" id="categoryNameCustom">{{category.name}}</h1>
 {{{category.description}}}
 <ul class="custom_inline_pro">
     {{#each category.subcategories}}

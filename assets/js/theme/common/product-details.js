@@ -38,7 +38,8 @@ export default class ProductDetails {
         const $productCategoryElement = $('[data-product-category-change]', $form);
         $productCategoryElement.change(event => {
             console.log('event cought');
-            this.customProductOptionsChanged(event);
+            //this.customProductOptionsChanged(event);
+            this.accessoriesListChanged(event);
         });
 
         $form.submit(event => {
@@ -163,6 +164,58 @@ export default class ProductDetails {
             return true;
         }
     }
+
+
+    accessoriesListChanged(event) {
+      console.log('accessoriesListChanged');
+      const $changedOption = $(event.target);
+      console.log($changedOption);
+      console.log($changedOption.context.id);
+      if($changedOption.context.id.indexOf('chk_option_') !== -1){
+        if($changedOption.context.checked == true){
+            const productId = $changedOption.context.id.split('_')[2];
+            console.log(productId);
+            console.log('XXXXXX add ID: ', $changedOption.context.id.split('_')[2]);
+            console.log('trigger add :', $changedOption.context.id.split('_')[2]);
+            const priceSpanId = '#data-bundle-price-' + productId;
+            const proPrice = $(priceSpanId).text();
+            console.log(proPrice);
+            //const optHeading = $changedOption.context.dataset.productAttributeLabel;
+            //const removeId = $changedOption.context.dataset.productRemoveId;
+            //const productId = $changedOption.context.dataset.productId;
+            const optHeading = $changedOption.context.getAttribute('data-product-attribute-label');
+            const proPriceValue = $changedOption.context.getAttribute('data-product-attribute-price');
+            console.log(proPriceValue);
+            const removeId = productId;
+            const currentTotal = $('[data-product-price-without-tax]').attr('data-product-price-without-tax');
+            console.log(currentTotal);
+            //const productId = $changedOption.context.getAttribute('data-product-id');
+            $('<div class="row pro" row-option="'+productId+'" row-none-option="'+removeId+'"><div class="box">'+optHeading+'</div><div class="box optPrice removeDiv">'+proPrice+'<span class="remove"><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-trash-can"></use></svg></i></span></div></div>').insertAfter('.row.proname');
+            const newTotal = parseFloat(currentTotal) + parseFloat(proPriceValue);
+            $('[data-product-price-without-tax]').attr('data-product-price-without-tax', newTotal);
+            $('[data-product-price-without-tax]').html("$"+ newTotal.toFixed(2));
+            this.selectedOptions[productId] = productId;
+        }else{
+            //const removeId = $changedOption.context.dataset.productRemoveId;
+            const removeId = $changedOption.context.getAttribute('data-product-remove-id');
+            console.log('XXXXXX Remove ID: ', removeId);
+            console.log('trigger remove :', removeId);
+            if( $('[row-none-option='+ removeId +']') != undefined) {
+                $('[row-none-option='+ removeId +']').remove();
+            }
+            const proPriceValue = $changedOption.context.getAttribute('data-product-attribute-price');
+            console.log(proPriceValue);
+            const currentTotal = $('[data-product-price-without-tax]').attr('data-product-price-without-tax');
+            console.log(currentTotal);
+            const newTotal = parseFloat(currentTotal) - parseFloat(proPriceValue);
+            $('[data-product-price-without-tax]').attr('data-product-price-without-tax', newTotal);
+            $('[data-product-price-without-tax]').html("$"+ newTotal.toFixed(2));
+            delete this.selectedOptions[removeId];
+                          
+        }
+      }
+    }
+
 
     customProductOptionsChanged(event) {
       console.log('customProductOptionsChanged');

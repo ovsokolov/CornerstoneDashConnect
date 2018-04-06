@@ -61,6 +61,10 @@
                             {{> components/common/login-for-pricing}}
                         {{/or}}
                     </div>
+                    {{#if product.sku}}
+                        <dt class="productView-info-name">{{lang 'products.sku'}}</dt>
+                        <dd class="productView-info-value" data-product-sku>{{product.sku}}</dd>
+                    {{/if}}
                     {{{region name="product_below_price"}}}
                     <div class="productView-rating"{{#if schema}} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{{/if}}>
                         {{#if settings.show_product_rating}}
@@ -211,9 +215,7 @@
             {{#if settings.show_wishlist}}
                 <form class="form" method="post" action="{{product.add_to_wishlist_url}}" data-wishlist-add>
                     <div class="form-action">
-                        {{#if product.options}}
-                            <a href="javascript:scrolltocustom('optionWrap',250)" class="button optionPopup_brn button--primary" data-customize-button="customize-button">Customize</a>
-                        {{/if}}
+                            <a href="javascript:scrolltocustom('optionWrap',250)" class="button optionPopup_brn button--primary" id="accListBtn" data-customize-button="customize-button" style="display:none">Customize</a>
                         <input type="hidden" name="variation_id" value="">
                         <input class="button" type="submit" value="{{lang 'account.wishlists.add_item'}}">
                     </div>

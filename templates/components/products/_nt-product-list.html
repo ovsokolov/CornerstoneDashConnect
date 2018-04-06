@@ -1,0 +1,34 @@
+---
+product:
+---
+<div class="form-field" data-product-attribute="product-list" data-step-name="{{product.title}}">
+    <ul class="productOptions-list">
+            <li class="productOptions-list-item" data-product-attribute-value="{{product.id}}">
+                <figure class="productOptions-list-item-figure">
+                    <img class="productOptions-list-item-image lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage product.main_image 'productthumb_size'}}" alt="{{product.image.alt}}" title="{{product.image.alt}}">
+                </figure>
+                <div class="productOptions-list-item-content">
+                    <input 
+                        class="form-checkbox custom-chk"
+                        type="checkbox"
+                        name="chk_option[{{product.id}}]"
+                        id="chk_option_{{product.id}}"
+                        value="{{product.id}}"
+                        data-product-id="{{product.id}}"
+                        data-product-remove-id="{{product.id}}"
+                        data-product-attribute-label="{{product.title}}"
+                        data-product-attribute-price="{{product.price.without_tax.value}}">
+                    <label data-product-attribute-value="{{product.id}}" class="form-label" for="chk_option_{{product.id}}">{{product.title}}
+
+                        </br>
+                        <span id="price_{{data}}">
+                        	<s>Regular Price: {{product.price.non_sale_price_without_tax.formatted}}</s>
+                        	<span class="bundle_price">Bundle Price: <span id="data-bundle-price-{{product.id}}">{{product.price.without_tax.formatted}}</span></span>
+                        </span>
+                    </label>
+                    <!--<a href="#" class="button" onclick="removeOption({{../id}})">X</a>-->
+                    <span class="show_hide_btn closed-details" id="btn_option_details_{{product.id}}"><a href="#" class="button">Show Details</a></span>
+                </div>
+            </li>
+    </ul>
+</div>

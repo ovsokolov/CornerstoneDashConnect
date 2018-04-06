@@ -1,20 +1,63 @@
 ---
 product:
 ---
-<div class="productView">
-    <section class="productView-images" data-image-gallery>
-        <figure class="productView-image"
-                data-image-gallery-main
-                data-zoom-image="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}"
-                >
-            <a href="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}">
-                <img class="productView-image--default"
-                     src="{{getImage product.main_image 'product_size' (cdn theme_settings.default_image_product)}}"
-                     alt="{{product.main_image.alt}}" title="{{product.main_image.alt}}" data-main-image>
-            </a>
-        </figure>
-    </section>
-    <article class="productView-description"{{#if schema}} itemprop="description"{{/if}}>
+<div class="PopupproductView clearfix">
+    <div class="PrdDtlPopupHdr clearfix">
+        <h1 class="productView-title">{{product.title}}</h1>
+        <div class="PrdDtlLinks">
+            <a class="PrdDtlLink" href="#PrdDtlImage" title="Image">Image</a>
+            <a class="PrdDtlLink" href="#PrdDtlDescription" title="Description">Description</a>
+            {{#if product.videos.list.length}}
+            <a class="PrdDtlLink" href="#PrdDtlVideo" title="Video">Video</a>
+            {{/if}}
+        </div>
+    </div>
+
+    <div class="Popuptabs-contents clearfix" id="TopPosition">
+        <div class="PrdDtlImg" id="PrdDtlImage">
+            <figure class="productView-image"
+                    data-image-gallery-main
+                    data-zoom-image="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}"
+                    >
+                <a href="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}">
+                    <img class="productView-image--default"
+                         src="{{getImage product.main_image 'product_size' (cdn theme_settings.default_image_product)}}"
+                         alt="{{product.main_image.alt}}" title="{{product.main_image.alt}}" data-main-image>
+                </a>
+            </figure>
+        </div>
+        <div class="PrdDtlDesp clearfix" id="PrdDtlDescription">
+            <article class="productView-description"{{#if schema}} itemprop="description"{{/if}}>
                 {{{product.description}}}
-    </article>
+            </article>
+        </div>
+        <div class="PrdDtlVid clearfix" id="PrdDtlVideo">
+       {{#if product.videos.list.length}}
+            {{> components/products/videos product.videos}}
+        {{/if}}
+        </div>
+    </div>
+    <div class="BtmToTop" id="PopupScrollTop">
+    	<a href="#PrdDtlImage">Jump to top</a>
+	</div>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+    });
+	$('.PrdDtlLinks a').click(function(e) {
+		$('#TopPosition').animate({
+			scrollTop: $($.attr(this, 'href')).offset().top
+		}, 500);
+    });
+//	$(document).on('click', 'a[href^="#"]', function (event) {
+//		event.preventDefault();
+//	
+//		$('PopupproductView').animate({
+//			scrollTop: $($.attr(this, 'href')).offset().top
+//		}, 500);
+//	});
+</script>

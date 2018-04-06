@@ -58,9 +58,7 @@
                                     </a>
                                 {{/if}}
                                 {{#if add_to_cart_url}}
-                                    <a href="{{add_to_cart_url}}" class="button button--primary" data-product-id="{{id}}">
-                                        {{lang 'products.add_to_cart'}}
-                                    </a>
+                                    <a href="{{url}}" class="button button--primary" data-product-id="{{id}}">{{lang 'products.choose_options'}}</a>
                                 {{/if}}
                                 {{#if out_of_stock_message}}
                                     <a href="{{url}}" class="button button--primary" data-product-id="{{id}}">{{out_of_stock_message}}</a>
@@ -108,6 +106,8 @@
                 </td>
                 {{/each}}
             </tr>
+            {{inject 'productComparisons' comparisons}}
+            <!--
             <tr class="compareTable-row">
                 <th class="compareTable-heading">
                     <span class="compareTable-headingText">{{lang 'common.other_details'}}</span>
@@ -126,6 +126,7 @@
                     </td>
                 {{/each}}
             </tr>
+            -->
         </table>
 
     </main>

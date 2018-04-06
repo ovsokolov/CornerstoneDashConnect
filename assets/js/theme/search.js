@@ -122,6 +122,24 @@ export default class Search extends CatalogPage {
                 $searchForm.append(input);
             }
         });
+        console.log('### Search Result ####');
+        console.log(this.context.searchResult);
+        console.log('### Search Result ####');
+        var brands = {};
+        $('[data-brand-label]', this.$scope).each((i, attribute) => {
+            const $attribute = $(attribute);
+            const brandId = $attribute.data('brand-label');
+            if (brandId.length > 0){
+                brands[brandId] = 1;
+            }
+        });
+        let key;
+        for (key in brands) {
+            if (brands.hasOwnProperty(key)) {
+                let brand = {}
+                $($('[data-brand-label='+key+']', this.$scope)[0]).show();       
+            }
+        }
     }
 
     loadTreeNodes(node, cb) {

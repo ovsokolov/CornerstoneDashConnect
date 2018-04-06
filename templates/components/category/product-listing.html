@@ -4,7 +4,7 @@
     {{#if theme_settings.product_list_display_mode '===' 'grid'}}
         {{> components/products/grid products=category.products show_compare=category.show_compare theme_settings=theme_settings}}
     {{else}}
-        {{> components/products/list products=category.products show_compare=category.show_compare theme_settings=theme_settings}}
+        {{> components/products/list products=(sortBy category.products "brand.name") show_compare=category.show_compare theme_settings=theme_settings}}
     {{/if}}
 </form>
 

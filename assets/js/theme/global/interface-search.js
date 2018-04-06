@@ -26,7 +26,8 @@ class InterfaceSearch {
         this.searchMMY = this.searchMMY.bind(this);
         this.mmyPageType = ["default","category","search"];
 
-        this.baseUrl = 'http://localhost:3000';
+        //this.baseUrl = 'http://localhost:3000';
+        this.baseUrl = 'https://tranquil-mesa-29755.herokuapp.com'
 
         //console.log('Interface Search');
         const pageType = document.getElementById('customPageType');
@@ -55,15 +56,14 @@ class InterfaceSearch {
     }
 
     searchMMY() {
-        const optionList = sessionStorage.getItem('optionList');
-        const optionArray = JSON.parse(optionList);
+        const selectedMake = sessionStorage.getItem('make-selected');
+        const selectedModel = sessionStorage.getItem('model-selected');
+        const selectedYear = sessionStorage.getItem('year-selected');
         const selectedOption = sessionStorage.getItem('option-selected');
-        optionArray.forEach((arrayItem) => {
-            if (arrayItem.option_1.localeCompare(selectedOption) === 0) {
-                //window.location = arrayItem.category_url;
-                //window.location = http://ovsokolov-gmail-com2.mybigcommerce.com/search.php?search_query=product&amp;section=product
-            }
-        });
+        const searchKeyword = "\"" + selectedMake + "~" + selectedModel + "~" + selectedYear + "~" + selectedOption + "\""
+        console.log(searchKeyword);
+        //window.location = "http://ovsokolov-gmail-com2.mybigcommerce.com/search.php?search_query="+ searchKeyword + "&amp;section=product";
+        window.location = "/search.php?search_query="+ searchKeyword + "&amp;section=product";
     }
 
     resetDropDowns() {
@@ -76,8 +76,8 @@ class InterfaceSearch {
         sessionStorage.removeItem('optionList');
         $('#vehicle-make').val('');
         this.populateDropDown('vehicle-model', 'Select Model', 'model_id', 'vehicle_model', null);
-        this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'year_text', null);
-        this.populateDropDown('vehicle-option', 'Select Option', 'option_1', 'option_1_desc', null);
+        this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'vehicle_year', null);
+        this.populateDropDown('vehicle-option', 'Select Option', 'option_id', 'vehicle_option', null);
     }
 
     onOptionSelect() {
@@ -98,8 +98,8 @@ class InterfaceSearch {
         sessionStorage.removeItem('option-selected');
         sessionStorage.removeItem('optionList');
         this.populateDropDown('vehicle-model', 'Loading Model ...', 'model_id', 'vehicle_model', null);
-        this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'year_text', null);
-        this.populateDropDown('vehicle-option', 'Select Option', 'option_1', 'option_1_desc', null);
+        this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'vehicle_year', null);
+        this.populateDropDown('vehicle-option', 'Select Option', 'option_id', 'vehicle_option', null);
         this.loadModel(makeId);
     }
 
@@ -112,8 +112,8 @@ class InterfaceSearch {
         sessionStorage.removeItem('yearsList');
         sessionStorage.removeItem('option-selected');
         sessionStorage.removeItem('optionList');
-        this.populateDropDown('vehicle-year', 'Loading Year ...', 'year_id', 'year_text', null);
-        this.populateDropDown('vehicle-option', 'Select Option', 'option_1', 'option_1_desc', null);
+        this.populateDropDown('vehicle-year', 'Loading Year ...', 'year_id', 'vehicle_year', null);
+        this.populateDropDown('vehicle-option', 'Select Option', 'option_id', 'vehicle_option', null);
         this.loadYear(modelId);
     }
 
@@ -122,15 +122,15 @@ class InterfaceSearch {
         const yearId = $('#vehicle-year option:selected').val();
         sessionStorage.removeItem('option-selected');
         sessionStorage.removeItem('optionList');
-        this.populateDropDown('vehicle-option', 'Loading Option...', 'option_1', 'option_1_desc', null);
+        this.populateDropDown('vehicle-option', 'Loading Option...', 'option_id', 'vehicle_option', null);
         this.loadOption(yearId);
     }
 
     loadDropDowns() {
-        //this.loadMake();
-        //this.loadModel();
-        //this.loadYear();
-        //this.loadOption();
+        this.loadMake();
+        this.loadModel();
+        this.loadYear();
+        this.loadOption();
     }
 
     loadModel(makeID) {
@@ -221,16 +221,10 @@ class InterfaceSearch {
             xhr.onload = () => {
                 let list = [];
                 list = JSON.parse(xhr.responseText);
-                const yearResult = list[0];
-                const yearFrom = parseInt(yearResult.year_from, 10);
-                const yearTo = parseInt(yearResult.year_to, 10);
-                const yearsArray = [];
-                for (let i = yearFrom; i <= yearTo; i++) {
-                    yearsArray.push({ year_id: i, year_text: i });
-                }
+
                 // console.log('Years Array: ', yearsArray);
-                sessionStorage.setItem('yearsList', JSON.stringify(yearsArray));
-                this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'year_text', yearsArray);
+                sessionStorage.setItem('yearsList', JSON.stringify(list));
+                this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'vehicle_year', list);
             };
 
             xhr.onerror = () => {
@@ -241,7 +235,7 @@ class InterfaceSearch {
         } else {
             const yearsList = sessionStorage.getItem('yearsList');
             const yearsArray = JSON.parse(yearsList);
-            this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'year_text', yearsArray);
+            this.populateDropDown('vehicle-year', 'Select Year', 'year_id', 'vehicle_year', yearsArray);
         }
         const yearValue = sessionStorage.getItem('year-selected');
         // console.log('Current year: ', yearValue);
@@ -268,7 +262,7 @@ class InterfaceSearch {
                 list = JSON.parse(xhr.responseText);
                 // console.log(list);
                 sessionStorage.setItem('optionList', JSON.stringify(list));
-                this.populateDropDown('vehicle-option', 'Select Option', 'option_1', 'option_1_desc', list);
+                this.populateDropDown('vehicle-option', 'Select Option', 'option_id', 'vehicle_option', list);
             };
 
             xhr.onerror = () => {
@@ -279,7 +273,7 @@ class InterfaceSearch {
         } else {
             const optionList = sessionStorage.getItem('optionList');
             const optionArray = JSON.parse(optionList);
-            this.populateDropDown('vehicle-option', 'Select Option', 'option_1', 'option_1_desc', optionArray);
+            this.populateDropDown('vehicle-option', 'Select Option', 'option_id', 'vehicle_option', optionArray);
         }
         const optionValue = sessionStorage.getItem('option-selected');
         // console.log('Current option: ', optionValue);

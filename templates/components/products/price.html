@@ -31,7 +31,7 @@
                     <span translate>As low as </span>
                 {{/if}}
             {{/if}}
-            <span data-product-price-without-tax class="price price--withoutTax">{{price.without_tax.formatted}}</span>
+            <span data-product-price-without-tax="{{price.without_tax.value}}" class="price price--withoutTax">{{price.without_tax.formatted}}</span>
             {{#if price.with_tax}}
                 <abbr title="{{lang 'products.excluding_tax'}}">{{lang 'products.price_without_tax' tax_label=price.tax_label}}</abbr>
             {{/if}}
@@ -67,7 +67,7 @@
                 <meta itemprop="price" content="{{price.without_tax.value}}">
                 <meta itemprop="priceCurrency" content="{{currency_selector.active_currency_code}}">
             {{/if}}
-            <span data-product-price-without-tax class="price price--withoutTax">{{price.without_tax.formatted}}</span>
+            <span data-product-price-without-tax="{{price.without_tax.value}}" class="price price--withoutTax">{{price.without_tax.formatted}}</span>
             {{#if price.with_tax}}
                 <abbr title="{{lang 'products.excluding_tax'}}">{{lang 'products.price_without_tax' tax_label=price.tax_label}}</abbr>
             {{/if}}

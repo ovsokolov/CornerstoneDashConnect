@@ -1,0 +1,223 @@
+{ 
+    "optionsets": {
+        "S1": {
+        	"categories": [ 
+        		{
+        			"name": "C1",
+        			"options": [1,2]
+        		},
+         		{
+        			"name": "C2",
+        			"options": [3,4]
+        		},
+                {
+                    "name": "C3",
+                    "options": [1,2]
+                },
+                {
+                    "name": "C4",
+                    "options": [3,4]
+                },
+                {
+                    "name": "C5",
+                    "options": [3,4]
+                }
+        	]
+    	},
+        "S2": {
+        	"categories": [ 
+        		{
+        			"name": "C3",
+        			"options": [5,6]
+        		},
+         		{
+        			"name": "C4",
+        			"options": [7,8]
+        		}
+        	]
+    	}
+    },
+    "categories": {
+    	"C1": {
+    		"name": "Cameras",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/lens-icon.jpg",
+    		"category": "STEP-1"
+    	},
+    	"C2": {
+    		"name": "Add-Ons",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/gps-icon.jpg",
+    		"category": "STEP-2"
+    	},
+    	"C3": {
+    		"name": "External Control",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/resolution-icon.jpg",
+    		"category": "STEP-3"
+    	},
+    	"C4": {
+    		"name": "Cables",
+    		"icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg",
+    		"category": "STEP-4"
+    	},
+        "C5": {
+            "name": "Other",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg",
+            "category": "STEP-5"
+        }
+
+    },
+    "features": {
+        "A1": {
+            "image":"/product_images/uploaded_images/360degreeicon-03.png",
+            "heading":"360-degree lens", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+        },
+        "A2": {
+            "image":"/product_images/uploaded_images/powersensoricon-03.png",
+            "heading":"Power sensors", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+
+        },
+        "A3": {
+            "image":"/product_images/uploaded_images/weylenicon-03.png",
+            "heading":"The Waylens Secure app", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+        },
+        "A4": {
+            "image":"/product_images/uploaded_images/360degreeicon-03.png",
+            "heading":"Heading A4", 
+            "contents":"Life on Me road is a busy and unpredictable place. The amazing 360-degree Jens Of the seen.. never misses a Ming, capturing everything that goes on inside and outside the car. Whether a fender bender Ina parking lot or a collision during your commute."
+        }
+    },
+    "customfields": {
+        "FTR_FTRY_VIM": "FACTORY INSTALLED DVD VIDEO-IN-MOTION",
+        "FTR_FTRY_NIM" : "FACTORY NAVIGATION-IN-MOTION",
+        "FTR_FTRY_CIM" : "FACTORY RADIO CONTROL-IN-MOTION",
+        "FTR_FTRY_CID" : "FACTORY INSTALLED CAMERA-IN-DRIVE",
+        "FTR_AFTRM_CID" : "AFTERMARKET CAMERA-IN-DRIVE",
+        "FTR_HDMI_INPUT" : "HDMI INPUT",
+        "FTR_WM" : "WIRELESS MIRROING",
+        "FTR_CARPLAY" : "APPLE CARPLAY",
+        "FTR_AA" : "ANDROID AUTO",
+        "FTR_ANDROID_TOUCH" : "ANDROID PHONE TOUCH SCREEN CONTROL",
+        "FTR_NAVIGATION" : "NAVIGATION / ANDROID BASED CAR COMPUTER",
+        "FTR_AUDIO_OUT" : "AUDIO OUTPUT TO VEHICLES AUDIO INPUT",
+        "FTR_VIDEO_OUT" : "VIDEO OUTPUT FOR ADDITIONAL SCREENS",
+        "FTR_VIDEO_INPUT" : "VIDEO INPUT FOR ADDITIONAL VIDEO SOURCES",
+        "FTR_REAR_CAMERA" : "REAR CAMERA INPUT",
+        "FTR_FRONT_CAMERA" : "FRONT CAMERA INPUT",
+        "FTR_LEFT_CAMERA" : "LEFT CAMERA INPUT",
+        "FTR_RIGHT_CAMERA" : "RIGHT CAMERA INPUT",
+        "FTR_CHILD_CAMERA" : "CHILD WATCH CAMERA INPUT",
+        "FTR_360_VIEW" : "360 SURROUND VIEW CAMERA INPUT",
+        "FTR_USB_CHARGER" : "USB CHARGER",
+        "FTR_SW_UPDATE" : "SOFTWARE UPDATABLE ",
+        "FTR_INT_CONTROL" : "INTERFACE CONTROLS"
+    }, 
+    "test": {
+        "aaa": "bbb"
+    },
+    "test1": {
+        "aaa": 111
+    },
+    "accessories": {
+        "REAR_CAMERA": 119,
+        "FRONT_CAMERA": 120,
+        "LEFT_CAMERA": 117,
+        "RIGHT_CAMERA": 118,
+        "CHILD_CAMERA": 148,
+        "360_CAMERA": 149,
+        "WIRELESS_ADAPTER": 122,
+        "LIGHTING_KIT": 150,
+        "NAVIGATION_SYSTEM": 126,
+        "CARPLAY": 125,
+        "ANDROID_AUTO": 151,
+        "PUSH_BUTTON": 123,
+        "BLUETOOTH_ADAPTER": 152,
+        "WHEEL_REMOTE": 124,
+        "MICRO_USB_CABLE": 153,
+        "HDMI_USB_EXT": 154,
+        "LIGHTNING_HDMI_ADAPTER": 155,
+        "LIGHTNING_EXT_CABLE": 156,
+        "6_FEET_RCA_CABLE": 157,
+        "6_FEET_HDMI_CABLE": 158,
+        "6_FEET_LIGHTNING_CABLE" : 159,
+        "2_YEAR_WARRANTY": 160,
+        "3_YEAR_WARRANTY": 161,
+        "5_YEAR_WARRANTY": 162,
+        "VIDEO_CHAT_SUPPORT": 163,
+        "BASIC_TOOLS": 164,
+        "ADVANCED_TOOLS": 165
+    },
+    "accessories_categories": {
+        "CAMERAS": {
+            "name": "CAMERAS",
+            "description": "CAMERAS",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/lens-icon.jpg"
+        },
+        "SMARTPHONE_MIRRORING": {
+            "name": "SMARTPHONE_MIRRORING",
+            "description": "SMARTPHONE MIRRORING",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/gps-icon.jpg"
+        },
+        "NAVIGATION_SYSTEM": {
+            "name": "NAVIGATION_SYSTEM",
+            "description": "NAVIGATION SYSTEM",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/resolution-icon.jpg"
+
+        },
+        "CARPLAY_AA": {
+            "name": "CARPLAY_AA",
+            "description": "APPLE CARPLAY & ANDROID AUTO",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg"
+        },
+        "CABLES_ACCESSORIES": {
+            "name": "CABLES_ACCESSORIES",
+            "description": "CABLES & ACCESSORIES",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg"
+        },
+        "WARRANTY": {
+            "name": "WARRANTY",
+            "description": "EXTENDED WARRANTY PACK",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg"
+        },
+        "TOOLS": {
+            "name": "TOOLS",
+            "description": "INSTALLATION SUPPORT AND TOOLS",
+            "icon": "https://cdn6.bigcommerce.com/s-d0lq2s/product_images/uploaded_images/memory-icon.jpg"
+        }
+    },
+    "accessorieslist": {
+        "LIST_2": {
+            "categories": [
+                {
+                    "NAME": "CAMERAS",
+                    "OPTIONS": ["REAR_CAMERA","FRONT_CAMERA","LEFT_CAMERA","RIGHT_CAMERA","CHILD_CAMERA","360_CAMERA"]
+                },
+                {
+                    "NAME": "SMARTPHONE_MIRRORING",
+                    "OPTIONS": ["WIRELESS_ADAPTER","LIGHTING_KIT"]
+                },
+                {
+                    "NAME":"NAVIGATION_SYSTEM",
+                    "OPTIONS": ["NAVIGATION_SYSTEM"]
+                },
+                {
+                    "NAME": "CARPLAY_AA",
+                    "OPTIONS" : ["CARPLAY","ANDROID_AUTO"]
+                },
+                {
+                    "NAME": "CABLES_ACCESSORIES",
+                    "OPTIONS": ["PUSH_BUTTON","MICRO_USB_CABLE","HDMI_USB_EXT","LIGHTNING_HDMI_ADAPTER","LIGHTNING_EXT_CABLE","6_FEET_RCA_CABLE","6_FEET_HDMI_CABLE","6_FEET_LIGHTNING_CABLE"]
+                },
+                {
+                    "NAME":"WARRANTY",
+                    "OPTIONS": ["2_YEAR_WARRANTY","3_YEAR_WARRANTY","5_YEAR_WARRANTY"]
+                },
+                {
+                    "NAME":"TOOLS",
+                    "OPTIONS": ["VIDEO_CHAT_SUPPORT","BASIC_TOOLS","ADVANCED_TOOLS"]
+                }
+            ]
+        }
+    }
+}
