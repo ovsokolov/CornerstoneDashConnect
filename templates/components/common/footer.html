@@ -73,8 +73,9 @@
    <div class="foot-cpy clearboth">
      <div class="container">      
         <div class="pymt">
-     <!--{{> components/common/payment-icons}}-->
+     	
          <div>{{> components/common/store-logo}}</div>
+         {{> components/common/payment-icons}}
          {{#if theme_settings.geotrust_ssl_common_name}}
             <div class="footer-geotrust-ssl-seal">
                 {{> components/common/geotrust-ssl-seal}}
@@ -119,7 +120,9 @@
 </script>
 
 <style>
-    
+ .footer-payment-icons {
+    margin-top: 0;
+}   
 .custom_inline_pro li {
     display: inline-block;
     width: 19%;

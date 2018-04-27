@@ -60,6 +60,22 @@ class InterfaceSearch {
         const selectedModel = sessionStorage.getItem('model-selected');
         const selectedYear = sessionStorage.getItem('year-selected');
         const selectedOption = sessionStorage.getItem('option-selected');
+        if(selectedMake == null){
+            alert('Please Select Car Make');
+            return;
+        }
+        if(selectedModel == null){
+            alert('Please Select Car Model');
+            return;
+        }
+        if(selectedYear == null){
+            alert('Please Select Car Year');
+            return;
+        }
+        if(selectedOption == null){
+            alert('Please Select Car Option');
+            return;
+        }
         const searchKeyword = "\"" + selectedMake + "~" + selectedModel + "~" + selectedYear + "~" + selectedOption + "\""
         console.log(searchKeyword);
         //window.location = "http://ovsokolov-gmail-com2.mybigcommerce.com/search.php?search_query="+ searchKeyword + "&amp;section=product";
