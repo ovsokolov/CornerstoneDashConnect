@@ -129,11 +129,15 @@ blog:
 	{{#each categories}}
 		{{#if children}}
 			<ul>
-			{{#if name 'category'}}
-				{{#each children}}						
-				<li>
-				 <a  href="{{url}}" alt="{{name}}" title="{{name}}"> <img src="{{getImage image "thumbnail"}}"><div><h6>{{name}}</h6></div> </a>
-				 </li>
+			{{#if name 'Products'}}
+				{{#each children}}	
+					{{#if name 'Interfaces'}}	
+						{{#each children}}				
+							<li>
+							 <a  href="{{url}}" alt="{{name}}" title="{{name}}"> <img src="{{getImage image "thumbnail"}}"><div><h6>{{name}}</h6></div> </a>
+							 </li>
+				 		{{/each}}
+				 	{{/if}}
 				 {{/each}}
 			{{/if}}			
 			</ul>
