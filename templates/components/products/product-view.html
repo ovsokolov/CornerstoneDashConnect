@@ -215,9 +215,13 @@
             {{#if settings.show_wishlist}}
                 <form class="form" method="post" action="{{product.add_to_wishlist_url}}" data-wishlist-add>
                     <div class="form-action">
-                            <a href="javascript:scrolltocustom('optionWrap',250)" class="button optionPopup_brn button--primary" id="accListBtn" data-customize-button="customize-button" style="display:none">Customize</a>
+                        {{#if product.can_purchase}}
+                            <input class="button" type="submit" value="{{lang 'account.wishlists.add_item'}}" data-notify-back-button="add-whishlist">
+                        {{else}}
+                            <input class="button soldoutbtn" type="submit" value="{{lang 'account.wishlists.notify_back'}}" data-notify-back-button="notify-back">
+                        {{/if}}
+                        <a href="javascript:scrolltocustom('optionWrap',250)" class="button optionPopup_brn button--primary" id="accListBtn" data-customize-button="customize-button" style="display:none">Customize</a>
                         <input type="hidden" name="variation_id" value="">
-                        <input class="button" type="submit" value="{{lang 'account.wishlists.add_item'}}">
                     </div>
                 </form>
             {{/if}}
@@ -233,7 +237,11 @@
                         {{> components/common/login-for-pricing}}
                     {{/or}}
                 </span>
-                <span class="topAddtoCart btn">Add To Cart</span>
+                {{#if product.can_purchase}}
+                    <span class="topAddtoCart btn">Add To Cart</span>
+                {{else}}
+                     <span class="topSoldOut btn">Sold Out</span>                  
+                {{/if}}
                 <span class="detail btn" data-text-swap="Hide" data-text-original="Details">Details</span>
             </div>
             <div class="cartPreview">
@@ -292,7 +300,11 @@
                 </div>
                 <!-- add quantity -->
                 <div class="addToCart">
-                    <input id="form-action-addToCart_custom" data-wait-message="Adding to cart…" class="button button--primary" value="Add to Cart" type="submit">
+                    {{#if product.can_purchase}}
+                        <input id="form-action-addToCart_custom" data-wait-message="Adding to cart…" class="button button--primary" value="Add to Cart" type="submit">
+                    {{else}}
+                        {{> components/common/alert-error (lang 'products.sold_out')}}
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -317,6 +329,7 @@
                         {{/each}}
                         {{inject 'productOptions' product.options}}
                         {{inject 'productCustomFields' product.custom_fields}}
+                        {{inject 'currentCustomer' customer}}
                         <div data-product-category-change style="display:none;"> <!-- display none -->
                             <div class="customOption">
                                 <div class="optionSet otherOption" id="options-categories">

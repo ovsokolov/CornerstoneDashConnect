@@ -1,4 +1,116 @@
 {{#partial "page"}}
+<meta name="google-signin-client_id" content="815376216442-46dr3h8g1bhvnk8cfasshpumd0e2d3ro.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<script src="https://apis.google.com/js/api:client.js"></script>
+
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+        if(response.authResponse){
+
+          // Redirect to our new handler
+           FB.api('/me?fields=email,name', function (response) {
+                console.log("Facebook");
+                console.log(response);
+                window.location = 'https://871064ec.ngrok.io/get_login?email=' + response.email + "&name=" + response.name;
+            });
+        }
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '126975044376398',
+      cookie     : true,  // enable cookies to allow the server to access 
+                          // the session
+      status     : true, // check login status
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v3.0' // use graph api version 2.6
+    });
+
+    // Now that we've initialized the JavaScript SDK, we call 
+    // FB.getLoginStatus().  This function gets the state of the
+    // person visiting this page and can return one of three states to
+    // the callback you provide.  They can be:
+    //
+    // 1. Logged into your app ('connected')
+    // 2. Logged into Facebook, but not your app ('not_authorized')
+    // 3. Not logged into Facebook and can't tell if they are logged into
+    //    your app or not.
+    //
+    // These three cases are handled in the callback function.
+
+
+  };
+
+  // Load facebook SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  //google signin
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '815376216442-46dr3h8g1bhvnk8cfasshpumd0e2d3ro.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+              var profile = googleUser.getBasicProfile();
+              console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+              console.log('Name: ' + profile.getName());
+              console.log('Image URL: ' + profile.getImageUrl());
+              console.log('Email: ' + profile.getEmail()); 
+              window.location = 'https://871064ec.ngrok.io/get_login?email=' + profile.getEmail() + "&name=" + profile.getName();// This is null if the 'email' scope is not present.
+        }, function(error) {
+          console.log(JSON.stringify(error, undefined, 2));
+        });
+  }
+  /*
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      //window.location = 'https://871064ec.ngrok.io/get_login?email=' + profile.getEmail() + "&name=" + profile.getName();
+      //window.location = 'https://871064ec.ngrok.io/get_login?email=test@gmail.com&name=';
+    }
+    */
+ </script>
+
 <div class="login">
     {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
     <h1 class="page-heading">{{lang 'login.heading' }}</h1>
@@ -24,6 +136,15 @@
                 <input type="submit" class="button button--primary" value="{{lang 'login.submit_value' }}">
                 <a class="forgot-password" href="{{urls.auth.forgot_password}}">{{lang 'login.forgot_password' }}</a>
             </div>
+            <br><br>
+            <div class="fb-login-button" data-max-rows="1" data-scope="email" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-onlogin="checkLoginState"></div>
+            <br><br>
+              <div id="gSignInWrapper">
+                <div id="customBtn" class="customGPlusSignIn">
+                  <span class="googleIcon"></span>
+                  <span class="googleButtonText">Sign in with Google</span>
+                </div>
+              </div>
         </form>
         {{#if settings.account_creation_enabled}}
             <div class="new-customer">
@@ -49,3 +170,5 @@
 </div>
 {{/partial}}
 {{> layout/base}}
+
+<script>startApp();</script>

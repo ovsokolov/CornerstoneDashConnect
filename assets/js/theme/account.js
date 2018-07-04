@@ -5,6 +5,7 @@ import Wishlist from './wishlist';
 import validation from './common/form-validation';
 import stateCountry from './common/state-country';
 import { classifyForm, Validators, insertStateHiddenField } from './common/form-utils';
+import urlUtils from './common/url-utils';
 import swal from 'sweetalert2';
 
 export default class Account extends PageManager {
@@ -67,7 +68,34 @@ export default class Account extends PageManager {
         }
 
         this.bindDeleteAddress();
+        // #### start rma change
+        /*
+        console.log('##### Returns #####');
+        console.log(this.context.myCustomerReturns);
+        console.log(this.context.myFormReturns);
 
+        const url = 'http://localhost:3000/rma_save';
+        // console.log(url);
+        const xhr = urlUtils.createCORSRequest('POST', url);
+        if (!xhr) {
+            alert('CORS not supported');
+            return;
+        }
+        // Response handlers.
+        xhr.onload = () => {
+            //let list = [];
+            //list = JSON.parse(xhr.responseText);
+            //console.log(list);
+
+        };
+
+        xhr.onerror = () => {
+            alert('Woops, there was an error making the request.');
+        };
+        var json = JSON.stringify(this.context.myCustomerReturns);
+        xhr.send(json);
+        */
+        // #### end rma change
         next();
     }
 

@@ -3,7 +3,7 @@
 {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
 <h1 class="page-heading">{{lang 'account.returns.new_return' }}</h1>
 {{> components/account/navigation account_page='returns'}}
-
+{{inject "myFormReturns" forms.return}}
 <main class="account account--fixed account--addReturn">
     <div class="account-body">
         <section class="account-content">

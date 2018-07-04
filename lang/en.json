@@ -406,6 +406,7 @@
             "empty_wishlist": "Your wish list is empty. When you add items to your wish list they will appear here.",
             "num_items": "Items",
             "add_item": "Add to Wish list",
+            "notify_back": "Notify When In Stock",
             "remove_item": "Remove Item",
             "name": "Wish list Name",
             "shared": "Shared",

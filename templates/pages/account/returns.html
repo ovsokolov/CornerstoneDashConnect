@@ -7,6 +7,7 @@
 <main class="account account--fixed">
     <div class="account-body">
         <section class="account-content">
+        	{{inject "myCustomerReturns" customer.returns}}
             {{#if customer.returns}}
                 {{> components/account/returns-list returns=customer.returns}}
             {{else}}

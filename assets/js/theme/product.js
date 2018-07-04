@@ -7,6 +7,7 @@ import Review from './product/reviews';
 import collapsibleFactory from './common/collapsible';
 import ProductDetails from './common/product-details';
 import videoGallery from './product/video-gallery';
+import urlUtils from './common/url-utils';
 import { classifyForm } from './common/form-utils';
 
 import utils from '@bigcommerce/stencil-utils';
@@ -27,6 +28,15 @@ export default class Product extends PageManager {
         this.setUpProductView = this.setUpProductView.bind(this);
         this.setOptionsView = this.setOptionsView.bind(this);
         this.setAccesoriesView = this.setAccesoriesView.bind(this);
+
+        $('body').on('submit', '[data-wishlist-add]', (event) => {
+                console.log("submit add wisg list");
+                if(this.context.currentCustomer == null) {
+                    return false;
+                }else{
+                    return true;
+                }
+        });
 
     }
 
@@ -71,6 +81,49 @@ export default class Product extends PageManager {
         $('body').on('click', '[data-customize-button="customize-button"]', () => {
             //this.setOptionsView();
             this.setAccesoriesView();
+        });
+
+
+        //params.permit(:id, :user_email, :user_type, :req_type, :make, :model, :year, :option, :interface, :brand, :description)
+        $('body').on('click', '[data-notify-back-button="notify-back"]', () => {
+            const productCustomFields = this.context.productCustomFields;
+            console.log(productCustomFields);
+            var urlEncodedData = "";
+            var urlEncodedDataPairs = [];
+            urlEncodedDataPairs.push(encodeURIComponent('user_email') + '=' + encodeURIComponent('test@gmail.com'));
+            urlEncodedDataPairs.push(encodeURIComponent('user_type') + '=' + encodeURIComponent('GUEST'));
+            urlEncodedDataPairs.push(encodeURIComponent('req_type') + '=' + encodeURIComponent('S'));
+            urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+            const XHR = urlUtils.createCORSRequest('POST', 'http://localhost:3000/wishlists');
+            // Add the required HTTP header for form data POST requests
+            XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // Finally, send our data.
+            XHR.send(urlEncodedData);
+            //this.setOptionsView();
+            //var person = prompt("Please provide your email:", "");
+            //console.log(person);
+            console.log("notify back");
+            console.log(this.context.currentCustomer);
+        });
+        $('body').on('click', '[data-notify-back-button="add-whishlist"]', () => {
+            const productCustomFields = this.context.productCustomFields;
+            console.log(productCustomFields);
+            var urlEncodedData = "";
+            var urlEncodedDataPairs = [];
+            urlEncodedDataPairs.push(encodeURIComponent('user_email') + '=' + encodeURIComponent('test@gmail.com'));
+            urlEncodedDataPairs.push(encodeURIComponent('user_type') + '=' + encodeURIComponent('GUEST'));
+            urlEncodedDataPairs.push(encodeURIComponent('req_type') + '=' + encodeURIComponent('W'));
+            urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+            const XHR = urlUtils.createCORSRequest('POST', 'http://localhost:3000/wishlists');
+            // Add the required HTTP header for form data POST requests
+            XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // Finally, send our data.
+            XHR.send(urlEncodedData);
+            //this.setOptionsView();
+            //var person = prompt("Please provide your email:", "");
+            //console.log(person);
+            console.log("add wishlist");
+            console.log(this.context.currentCustomer);
         });
 
         $reviewForm.on('submit', () => {
