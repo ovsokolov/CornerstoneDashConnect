@@ -264,6 +264,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="row proname">
+                    {{#unless customer}}
+                        {{> components/common/_nt_login-for-pricing}}
+                    {{/unless}}
+                </div>
                 <!-- add quantity -->
                 <div class="form-field form-field--increments">
                     <label class="form-label form-label--alternate"

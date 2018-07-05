@@ -1,13 +1,16 @@
 {{#partial "page"}}
+<!--
 <meta name="google-signin-client_id" content="815376216442-46dr3h8g1bhvnk8cfasshpumd0e2d3ro.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-
+-->
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 <script src="https://apis.google.com/js/api:client.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
 <script>
   // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
+function statusChangeCallback(response) {
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
@@ -24,67 +27,53 @@
             });
         }
     }
-  }
+}
 
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
-  function checkLoginState() {
+function checkLoginState() {
     FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
+        statusChangeCallback(response);
     });
-  }
+}
 
-  window.fbAsyncInit = function() {
+window.fbAsyncInit = function() {
     FB.init({
-      appId      : '126975044376398',
-      cookie     : true,  // enable cookies to allow the server to access 
+        appId      : '126975044376398',
+        cookie     : true,  // enable cookies to allow the server to access 
                           // the session
-      status     : true, // check login status
-      xfbml      : true,  // parse social plugins on this page
-      version    : 'v3.0' // use graph api version 2.6
+        status     : true, // check login status
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v3.0' // use graph api version 2.6
     });
-
-    // Now that we've initialized the JavaScript SDK, we call 
-    // FB.getLoginStatus().  This function gets the state of the
-    // person visiting this page and can return one of three states to
-    // the callback you provide.  They can be:
-    //
-    // 1. Logged into your app ('connected')
-    // 2. Logged into Facebook, but not your app ('not_authorized')
-    // 3. Not logged into Facebook and can't tell if they are logged into
-    //    your app or not.
-    //
-    // These three cases are handled in the callback function.
-
-
-  };
+};
 
   // Load facebook SDK asynchronously
-  (function(d, s, id) {
+(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+}(document, 'script', 'facebook-jssdk'));
 
   //google signin
-  var googleUser = {};
-  var startApp = function() {
+var googleUser = {};
+var startApp = function() {
     gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '815376216442-46dr3h8g1bhvnk8cfasshpumd0e2d3ro.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      });
-      attachSignin(document.getElementById('customBtn'));
+    // Retrieve the singleton for the GoogleAuth library and set up the client.
+        auth2 = gapi.auth2.init({
+            client_id: '815376216442-46dr3h8g1bhvnk8cfasshpumd0e2d3ro.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin',
+            // Request scopes in addition to 'profile' and 'email'
+            //scope: 'additional_scope'
+        });
+        attachSignin(document.getElementById('googleBtn'));
     });
-  };
+};
 
-  function attachSignin(element) {
+function attachSignin(element) {
     console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
@@ -95,21 +84,60 @@
               console.log('Email: ' + profile.getEmail()); 
               window.location = 'https://871064ec.ngrok.io/get_login?email=' + profile.getEmail() + "&name=" + profile.getName();// This is null if the 'email' scope is not present.
         }, function(error) {
-          console.log(JSON.stringify(error, undefined, 2));
-        });
-  }
-  /*
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-      //window.location = 'https://871064ec.ngrok.io/get_login?email=' + profile.getEmail() + "&name=" + profile.getName();
-      //window.location = 'https://871064ec.ngrok.io/get_login?email=test@gmail.com&name=';
-    }
-    */
- </script>
+        console.log(JSON.stringify(error, undefined, 2));
+    });
+}
+
+//twitter login with firebase
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyCPVm72GmfOGwUgOzIAyIO6Sd7NA9teTIY",
+    authDomain: "navtool-social-log-in.firebaseapp.com",
+    databaseURL: "https://navtool-social-log-in.firebaseio.com",
+    projectId: "navtool-social-log-in",
+    storageBucket: "navtool-social-log-in.appspot.com",
+    messagingSenderId: "862565073396"
+};
+firebase.initializeApp(config);
+
+function twitterLogin(){
+    console.log("twitter");
+    var provider = new firebase.auth.TwitterAuthProvider();  
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+        // You can use these server side with your app's credentials to access the Twitter API.
+        console.log("good result twitter");
+        var token = result.credential.accessToken;
+        var secret = result.credential.secret;
+        console.log(token);
+        console.log(secret);
+        // The signed-in user info.
+        var user = result.user;
+        console.log(user);
+        console.log(user.email);
+        console.log(user.displayName);
+        window.location = 'https://871064ec.ngrok.io/get_login?email=' + user.email + "&name=" + user.displayName
+      // ...
+    }).catch(function(error) {
+        // Handle Errors here.
+        console.log("error twitter");
+        console.log("error");
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log();
+        console.log();
+        // The email of the user's account used.
+        var email = error.email;
+        console.log();
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        console.log();
+      // ...
+    });  
+}
+
+
+</script>
 
 <div class="login">
     {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
@@ -139,12 +167,18 @@
             <br><br>
             <div class="fb-login-button" data-max-rows="1" data-scope="email" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-onlogin="checkLoginState"></div>
             <br><br>
-              <div id="gSignInWrapper">
-                <div id="customBtn" class="customGPlusSignIn">
-                  <span class="googleIcon"></span>
-                  <span class="googleButtonText">Sign in with Google</span>
+            <div id="gSignInWrapper">
+                <div id="googleBtn" class="customGPlusSignIn">
+                    <span class="googleIcon"></span>
+                    <span class="loginButtonText">Sign in with Google</span>
                 </div>
-              </div>
+            </div>
+            <br>
+            <div id="gSignInWrapper">
+                <div id="twitterBtn" class="customGPlusSignIn" onclick="twitterLogin()">
+                    <span class="twitterIcon"></span>
+                </div>
+            </div>
         </form>
         {{#if settings.account_creation_enabled}}
             <div class="new-customer">
